@@ -40,9 +40,23 @@ export default {
     
     const projects = [
       {
+        title: 'Loyalty Rewards Engine for E-Commerce',
+        duration: '2025',
+        details: [
+          'Built a modular, full-stack e-commerce web platform featuring an integrated loyalty rewards system, delivering seamless online shopping with automatic points tracking and instant reward redemption.',
+          'Engineered responsive frontend interfaces using React and Material UI for dynamic product browsing, cart management, reward visibility, and campaign engagement, ensuring an intuitive experience across devices.',
+          'Developed a robust Django REST backend with PostgreSQL, managing secure data storage for user profiles, orders, reward catalogs, campaign logic, and transaction histories.',
+          'Implemented real-time loyalty point computation and tier progression, instantly updating user dashboards with earned points and available rewards after every purchase.',
+          'Enabled secure authentication with JWT tokens, role-based access for users and admins, and encrypted session handling, prioritizing privacy and security at every step.',
+          'Provided efficient campaign management tools for administrators, including bonus point scheduling, campaign activation, and data-driven marketing controls, enhancing repeat purchase rates.',
+          'Integrated advanced analytics dashboards displaying points statistics, redemption rates, campaign ROI, and user tier distribution, empowering timely, informed decisions.',
+          'Supported scalable deployment and maintainability using Vercel serverless hosting, API-driven architecture, and modular React/Django codebase designed for future enhancements.',
+        ],
+        technologies: ['React', 'Material UI', 'Django REST Framework', 'PostgreSQL', 'JWT', 'Vercel', 'JavaScript']
+      },
+      {
         title: 'Armory E-commerce',
-        type: 'ArmoryX',
-        //duration: '2023',
+        duration: '2025',
         details: [
           'Developed a responsive e-commerce web application using React, React-Bootstrap, HTML5, and CSS3.',
           'Implemented key features such as a shopping cart, product category browsing, and secure checkout.',
@@ -54,8 +68,7 @@ export default {
       },
       {
         title: 'Pharmacy E-commerce',
-        type: 'Medimart',
-        //duration: '2023',
+        duration: '2025',
         details: [
           'Developed a responsive e-commerce platform for pharmacy services with seamless frontend functionality using React and modern styling through Tailwind CSS.',
           'Integrated advanced features like product filtering, inventory management, secure checkout systems, and cross-device compatibility for an enhanced user experience. ',
@@ -67,7 +80,6 @@ export default {
         ],
         technologies: ['React', 'Tailwind CSS', 'Node.js', 'PostgreSQL', 'MySQL', 'MongoDB', 'JavaScript']
       }
-      
     ];
 
     
