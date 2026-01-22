@@ -83,9 +83,12 @@ h2 {
     position: absolute;
     bottom: -$spacing-sm;
     left: 0;
-    width: 60px;
+    width: 100px;
     height: 3px;
     background-color: $primary-color;
+    left: 50%;
+    transform: translateX(-50%);
+
     
     .dark-mode & {
       background-color: lighten($primary-color, 10%);

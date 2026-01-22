@@ -46,8 +46,9 @@ export default {
     
     // Array of job titles for auto typing
     const jobTitles = [
+      'Associate Software Engineer',
       'Pega Developer',
-      'Software Engineer',
+      'Shopify Developer',
       'Web Developer',
       'Tech Enthusiast'
     ];

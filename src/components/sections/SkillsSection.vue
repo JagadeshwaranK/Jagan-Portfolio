@@ -78,8 +78,9 @@ export default {
       { name: 'Node.js', icon: 'fab fa-node-js' },
       { name: 'Git', icon: 'fab fa-git-alt' },
       { name: 'Docker', icon: 'fab fa-docker' },
-      { name: 'MongoDB', icon: 'fas fa-server' }
-      // { name: 'Sass', icon: 'fab fa-sass' }
+      { name: 'MongoDB', icon: 'fas fa-server' },
+      { name: 'Shopify', icon: 'fa-brands fa-shopify' },
+      { name: 'Pega Platform', icon: 'fas fa-layer-group' }
     ];
     
     // Soft skills
@@ -101,7 +102,11 @@ export default {
       { name: 'Back-end Development', percentage: 70 },
       { name: 'Database Design', percentage: 80 },
       { name: 'UI/UX Design', percentage: 70 },
+<<<<<<< HEAD
       { name:  'Shopify Development', percentage: 65 }
+=======
+      { name: 'Shopify Theme Design', percentage: 70 }
+>>>>>>> 7beb3651d94ba22c66709320be795064014b7dc1
     ];
     
     const checkIfInView = () => {
