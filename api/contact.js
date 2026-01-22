@@ -38,14 +38,7 @@ export default async function handler(req, res) {
       return;
     }
 
-    // Here you would typically send the email using a service like:
-    // - SendGrid
-    // - Mailgun
-    // - AWS SES
-    // - Or any other email service
-
-    // For now, we'll just log the data and return success
-    // In production, replace this with actual email sending logic
+    // Send email using SendGrid
     console.log('Contact form submission:', {
       name,
       email,
@@ -54,29 +47,43 @@ export default async function handler(req, res) {
       timestamp: new Date().toISOString()
     });
 
-    // You can also store the data in a database or send via email
-    // Example with SendGrid (uncomment and install @sendgrid/mail):
-    /*
-    const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    // Send email if SendGrid is configured
+    if (process.env.SENDGRID_API_KEY) {
+      const sgMail = require('@sendgrid/mail');
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-    const msg = {
-      to: 'your-email@example.com', // Your email address
-      from: 'noreply@yourdomain.com', // Verified sender
-      subject: `Portfolio Contact: ${subject}`,
-      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-      html: `
-        <h3>New Contact Form Submission</h3>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Subject:</strong> ${subject}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, '<br>')}</p>
-      `
-    };
+      const msg = {
+        to: process.env.EMAIL_TO || 'jagadesh.k3008@gmail.com', // Your email address
+        from: process.env.EMAIL_FROM || 'noreply@jagadesh-portfolio.vercel.app', // Verified sender
+        subject: `Portfolio Contact: ${subject}`,
+        text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">New Contact Form Submission</h2>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <p><strong>Name:</strong> ${name}</p>
+              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Subject:</strong> ${subject}</p>
+              <p><strong>Message:</strong></p>
+              <div style="background: white; padding: 15px; border-radius: 4px; border-left: 4px solid #007bff;">
+                ${message.replace(/\n/g, '<br>')}
+              </div>
+            </div>
+            <p style="color: #666; font-size: 12px;">This message was sent from your portfolio website contact form.</p>
+          </div>
+        `
+      };
 
-    await sgMail.send(msg);
-    */
+      try {
+        await sgMail.send(msg);
+        console.log('Email sent successfully');
+      } catch (emailError) {
+        console.error('Failed to send email:', emailError);
+        // Don't fail the request if email fails, just log it
+      }
+    } else {
+      console.log('SendGrid not configured - email not sent');
+    }
 
     res.status(200).json({
       success: true,

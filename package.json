@@ -2,17 +2,18 @@
   "name": "workspace",
   "version": "1.0.0",
   "main": "index.js",
-"scripts": {
-  "start": "vue-cli-service serve",
-  "serve": "vue-cli-service serve",
-  "build": "vue-cli-service build",
-  "test": "echo \"Error: no test specified\" && exit 1"
-},
+  "scripts": {
+    "start": "vue-cli-service serve",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@sendgrid/mail": "^8.1.6",
     "@vue/cli-service": "^5.0.8",
     "@vue/compiler-sfc": "^3.5.13",
     "sass": "^1.86.0",
