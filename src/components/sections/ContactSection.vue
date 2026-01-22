@@ -62,16 +62,9 @@
         
         <div class="contact-form" :class="{ 'visible': isInView }">
           <h3>Send Message</h3>
-          <form 
+          <form
             @submit.prevent="submitForm"
-            netlify
-            netlify-honeypot="bot-field"
-            name="contact"
-            data-netlify-recaptcha="true"
           >
-            <!-- Hidden Netlify Form Fields -->
-            <input type="hidden" name="form-name" value="contact">
-            <input type="text" name="bot-field" style="display: none;">
             
             <div class="form-group">
               <label for="name">Name</label>
@@ -119,10 +112,7 @@
                 placeholder="Your Message"
               ></textarea>
             </div>
-            
-            <!-- Netlify reCAPTCHA -->
-            <div data-netlify-recaptcha="true"></div>
-            
+
             <button type="submit" class="btn" :disabled="isSubmitting">
               <span v-if="isSubmitting"><i class="fas fa-spinner fa-spin"></i> Sending...</span>
               <span v-else>Send Message</span>
@@ -170,39 +160,47 @@ export default {
       // Set submitting state
       isSubmitting.value = true;
 
-      // Prepare form data for Netlify
-      const form = new FormData();
-      form.append('form-name', 'contact');
-      form.append('name', formData.name);
-      form.append('email', formData.email);
-      form.append('subject', formData.subject);
-      form.append('message', formData.message);
-
       try {
-        // Send form data to Netlify
-        await fetch('/', {
+        // Send form data to Vercel API
+        const response = await fetch('/api/contact', {
           method: 'POST',
-          body: form,
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            subject: formData.subject,
+            message: formData.message
+          })
         });
 
-        // Show success message
-        formStatus.show = true;
-        formStatus.success = true;
-        formStatus.message = 'Your message has been sent successfully!';
+        const result = await response.json();
 
-        // Reset form
-        formData.name = '';
-        formData.email = '';
-        formData.subject = '';
-        formData.message = '';
+        if (response.ok && result.success) {
+          // Show success message
+          formStatus.show = true;
+          formStatus.success = true;
+          formStatus.message = result.message || 'Your message has been sent successfully!';
+
+          // Reset form
+          formData.name = '';
+          formData.email = '';
+          formData.subject = '';
+          formData.message = '';
+        } else {
+          // Show error message
+          formStatus.show = true;
+          formStatus.success = false;
+          formStatus.message = result.error || 'There was a problem sending your message. Please try again.';
+        }
 
         // Hide status message after 5 seconds
         setTimeout(() => {
           formStatus.show = false;
         }, 5000);
       } catch (error) {
-        // Show error message
+        // Show error message for network issues
         formStatus.show = true;
         formStatus.success = false;
         formStatus.message = 'There was a problem sending your message. Please try again.';

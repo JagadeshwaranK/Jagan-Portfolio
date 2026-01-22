@@ -14,7 +14,7 @@
         
         <div class="about-text" :class="{ 'visible': isInView }">
           <h3>Hello, I'm <span class="highlight">Jagadeshwaran</span></h3>
-          <p class="subtitle">Pega Developer & Software Engineer</p>
+          <p class="subtitle">Associate Software Engineer</p>
           
           <p>
             I'm a passionate software engineer and Pega developer with expertise in creating 

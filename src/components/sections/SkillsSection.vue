@@ -85,7 +85,7 @@ export default {
     // Soft skills
     const softSkills = [
       { name: 'Problem Solving', icon: 'fas fa-lightbulb' },
-      { name: 'Communication', icon: 'fas fa-comments' },
+      // { name: 'Communication', icon: 'fas fa-comments' },
       { name: 'Teamwork', icon: 'fas fa-users' },
       { name: 'Leadership', icon: 'fas fa-user-tie' },
       { name: 'Time Management', icon: 'far fa-clock' },
@@ -98,9 +98,10 @@ export default {
     const coreSkills = [
       { name: 'Pega Development', percentage: 75 },
       { name: 'Front-end Development', percentage: 80 },
-      { name: 'Back-end Development', percentage: 85 },
+      { name: 'Back-end Development', percentage: 70 },
       { name: 'Database Design', percentage: 80 },
-      { name: 'UI/UX Design', percentage: 70 }
+      { name: 'UI/UX Design', percentage: 70 },
+      { name:  'Shopify Development', percentage: 65 }
     ];
     
     const checkIfInView = () => {
