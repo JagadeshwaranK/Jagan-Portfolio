@@ -5,13 +5,14 @@
         <span>JAGADESHWARAN K</span>
       </div>
       
-      <div class="navbar-menu" :class="{ 'active': mobileMenuOpen }">
+      <!-- Navbar menu ignored as per requirements -->
+      <!-- <div class="navbar-menu" :class="{ 'active': mobileMenuOpen }">
         <ul class="navbar-links">
           <li v-for="item in navItems" :key="item.id">
             <a :href="`#${item.id}`" @click="closeMobileMenu">{{ item.label }}</a>
           </li>
         </ul>
-      </div>
+      </div> -->
       
       <div class="navbar-actions">
         <DarkModeToggle :isDarkMode="isDarkMode" @toggle="$emit('toggle-dark-mode')" />

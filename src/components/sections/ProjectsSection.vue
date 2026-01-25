@@ -5,15 +5,34 @@
         <h2>Projects</h2>
       </div>
       
-      <div class="projects-timeline" ref="timeline">
-        <ProjectCard 
-          v-for="(project, index) in projects" 
-          :key="index" 
-          :project="project" 
-          :isDarkMode="isDarkMode"
+      <div class="projects-grid">
+        <div
+          v-for="(project, index) in projects"
+          :key="index"
+          class="project-item"
           :class="{ 'visible': isInView }"
-          :style="{ transitionDelay: `${index * 0.2}s` }"
-        />
+          :style="{ transitionDelay: `${index * 0.15}s` }"
+        >
+          <div class="project-card" :class="{ 'dark-mode': isDarkMode }">
+            <div class="project-header">
+              <h3>{{ project.title }}</h3>
+            </div>
+
+            <div class="project-body">
+              <ul class="project-details">
+                <li v-for="(detail, detailIndex) in project.details" :key="detailIndex">
+                  {{ detail }}
+                </li>
+              </ul>
+
+              <div class="technologies" v-if="project.technologies?.length">
+                <span class="tech-badge" v-for="(tech, techIndex) in project.technologies" :key="techIndex">
+                  {{ tech }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -21,12 +40,10 @@
 
 <script>
 import { ref, onMounted, onUnmounted } from 'vue';
-import ProjectCard from '../ui/ProjectCard.vue';
 
 export default {
   name: 'ProjectsSection',
   components: {
-    ProjectCard
   },
   props: {
     isDarkMode: {
@@ -35,13 +52,11 @@ export default {
     }
   },
   setup() {
-    const timeline = ref(null);
     const isInView = ref(false);
-    
+
     const projects = [
       {
         title: 'Loyalty Rewards Engine for E-Commerce',
-        duration: '2025',
         details: [
           'Built a modular, full-stack e-commerce web platform featuring an integrated loyalty rewards system, delivering seamless online shopping with automatic points tracking and instant reward redemption.',
           'Engineered responsive frontend interfaces using React and Material UI for dynamic product browsing, cart management, reward visibility, and campaign engagement, ensuring an intuitive experience across devices.',
@@ -56,7 +71,6 @@ export default {
       },
       {
         title: 'Armory E-commerce',
-        duration: '2025',
         details: [
           'Developed a responsive e-commerce web application using React, React-Bootstrap, HTML5, and CSS3.',
           'Implemented key features such as a shopping cart, product category browsing, and secure checkout.',
@@ -68,7 +82,6 @@ export default {
       },
       {
         title: 'Pharmacy E-commerce',
-        duration: '2025',
         details: [
           'Developed a responsive e-commerce platform for pharmacy services with seamless frontend functionality using React and modern styling through Tailwind CSS.',
           'Integrated advanced features like product filtering, inventory management, secure checkout systems, and cross-device compatibility for an enhanced user experience. ',
@@ -84,12 +97,14 @@ export default {
 
     
     const checkIfInView = () => {
-      if (timeline.value) {
-        const rect = timeline.value.getBoundingClientRect();
-        const isVisible = 
-          rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 && 
+      const projectsSection = document.getElementById('projects');
+
+      if (projectsSection) {
+        const rect = projectsSection.getBoundingClientRect();
+        const isVisible =
+          rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.7 &&
           rect.bottom >= 0;
-        
+
         isInView.value = isVisible;
       }
     };
@@ -109,7 +124,6 @@ export default {
     
     return {
       projects,
-      timeline,
       isInView
     };
   }
@@ -122,43 +136,134 @@ export default {
 .projects-section {
   background-color: dark-bg;
   transition: background-color $transition-normal;
-  
+
   &.dark-mode {
     background-color: $dark-bg;
   }
 }
 
-.projects-timeline {
+.projects-grid {
   max-width: 900px;
   margin: 0 auto;
   position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 120px;
-    height: 100%;
-    width: 2px;
-    background-color: $light-border;
-    
-    .dark-mode & {
-      background-color: $dark-border;
-    }
-    
-    @media (max-width: $breakpoint-md) {
-      left: -5px;
+  padding: $spacing-xl 0;
+}
+
+.project-item {
+  display: flex;
+  margin-bottom: $spacing-xl;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.project-card {
+  flex: 1;
+  background: white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-md;
+  transition: all $transition-normal;
+  position: relative;
+  border: 1px solid transparent;
+
+  &:hover {
+    border: 1px solid $primary-color;
+    box-shadow: $shadow-lg;
+  }
+
+  .dark-mode & {
+    background: $dark-card-bg;
+    border: 1px solid $dark-border;
+
+    &:hover {
+      border: 1px solid lighten($primary-color, 10%);
     }
   }
-  
-  :deep(.project-card) {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-    
-    &.visible {
-      opacity: 1;
-      transform: translateY(0);
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-md;
+  padding-bottom: $spacing-md;
+  border-bottom: 1px solid $light-border;
+
+  h3 {
+    color: $light-text;
+    font-size: $font-size-lg;
+    margin: 0;
+
+    .dark-mode & {
+      color: $dark-text;
+    }
+  }
+
+  .dark-mode & {
+    border-bottom: 1px solid $dark-border;
+  }
+}
+
+.project-body {
+  h4 {
+    color: $light-secondary-text;
+    margin-bottom: $spacing-sm;
+    font-weight: 600;
+
+    .dark-mode & {
+      color: $dark-secondary-text;
+    }
+  }
+
+  .project-details {
+    margin-left: $spacing-lg;
+    margin-bottom: $spacing-lg;
+
+    li {
+      margin-bottom: $spacing-sm;
+      color: $light-secondary-text;
+      line-height: 1.6;
+
+      .dark-mode & {
+        color: $dark-secondary-text;
+      }
+
+      &::marker {
+        color: $primary-color;
+
+        .dark-mode & {
+          color: lighten($primary-color, 10%);
+        }
+      }
+    }
+  }
+
+  .technologies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+
+    .tech-badge {
+      padding: $spacing-xs $spacing-sm;
+      background-color: rgba($primary-color, 0.1);
+      color: $primary-color;
+      border-radius: $border-radius-sm;
+      font-size: $font-size-sm;
+
+      .dark-mode & {
+        background-color: rgba($primary-color, 0.2);
+        color: lighten($primary-color, 10%);
+      }
     }
   }
 }

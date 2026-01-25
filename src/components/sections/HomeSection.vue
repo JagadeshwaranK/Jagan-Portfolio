@@ -9,13 +9,8 @@
         <span ref="typeTarget"></span>
       </div>
       <div class="actions" :class="{ 'fade-in': isVisible }">
-        <a href="#contact" class="btn btn-outline">Contact Me</a>
-        <a href="#about" class="btn btn-outline">Learn More</a>
-      </div>
-      <div class="scroll-down">
-        <a href="#about">
-          <i class="fas fa-chevron-down"></i>
-        </a>
+        <router-link to="/contact" class="btn btn-outline">Contact Me</router-link>
+        <router-link to="/about" class="btn btn-outline">Learn More</router-link>
       </div>
     </div>
     
@@ -201,9 +196,28 @@ export default {
     }
   }
 
+  .btn {
+    &.btn-outline {
+      &:hover {
+        background-color: transparent;
+        color: $primary-color;
+        box-shadow: 0 0 15px rgba($primary-color, 0.5);
+        transform: translateY(-3px);
+      }
+    }
+  }
+
   .dark-mode & {
     .btn {
       color: $light-text;
+      
+      &.btn-outline {
+        &:hover {
+          background-color: transparent;
+          color: lighten($primary-color, 10%);
+          box-shadow: 0 0 15px rgba($primary-color, 0.5);
+        }
+      }
     }
   }
 }

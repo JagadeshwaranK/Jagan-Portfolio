@@ -36,7 +36,7 @@
           </div>
           
           <div class="about-actions" :class="{ 'visible': isInView }">
-            <a href="#contact" class="btn btn-outline">Get In Touch</a>
+            <a href="/contact" class="btn btn-outline">Get In Touch</a>
             <a href="/assets/resume.pdf" download="JAGADESHWARAN K_SOFTWARE ENGINEER.pdf" class="btn btn-outline">Download CV</a>
           </div>
         </div>
@@ -248,11 +248,28 @@ export default {
 
   .btn {
     color: inherit;
+    
+    &.btn-outline {
+      &:hover {
+        background-color: transparent;
+        color: $primary-color;
+        box-shadow: 0 0 15px rgba($primary-color, 0.5);
+        transform: translateY(-3px);
+      }
+    }
   }
 
   .dark-mode & {
     .btn {
       color: $light-text;
+      
+      &.btn-outline {
+        &:hover {
+          background-color: transparent;
+          color: lighten($primary-color, 10%);
+          box-shadow: 0 0 15px rgba($primary-color, 0.5);
+        }
+      }
     }
   }
 }

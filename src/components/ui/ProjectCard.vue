@@ -41,24 +41,20 @@ export default {
 @import '../../assets/styles/variables';
 
 .project-card {
-  display: flex;
-  margin-bottom: $spacing-xl;
-  padding-bottom: $spacing-xl;
+  text-align: left;
+  margin-bottom: $spacing-lg;
+  padding-bottom: $spacing-lg;
   border-bottom: 1px solid $light-border;
   transition: all $transition-normal;
-  
+
   &:last-child {
     border-bottom: none;
     padding-bottom: 0;
     margin-bottom: 0;
   }
-  
+
   &.dark-mode {
     border-bottom-color: $dark-border;
-  }
-  
-  @media (max-width: $breakpoint-md) {
-    flex-direction: column;
   }
 }
 
