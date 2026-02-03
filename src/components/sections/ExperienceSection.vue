@@ -75,14 +75,14 @@ export default {
         startYear: '2025',
         endYear: 'Current',
         details: [
-          'End-to-End Case Life Cycle Development: Designed and implemented processes for diverse applications, ensuring scalability and maintainability.',
-          'API Integration: Configured REST APIs and services using REST connectors, seamlessly managing customer records through connectors, endpoint URLs, and Data Transforms.',
-          'Data Accuracy Improvement: Enhanced data accuracy by 15% with Data Transforms and Data Pages, streamlining operations for better performance.',
-          'Process Reliability: Reduced SLA violations by 10% through the creation and management of Service-Level Agreements (SLAs) with escalation protocols for timely task completion.',
-          'User Interface Enhancement: Developed Business Process Flows, Flow Actions, and UI components using CSS, HTML, and JavaScript to improve UI consistency and user experience.',
-          'Debugging Expertise: Leveraged tools like Tracer, Live UI, and Clipboard for effective issue resolution, ensuring smooth application operation.',
-                  ],
-        technologies: ['Pega', 'Agile', 'Java', 'REST API', 'SQL', 'SLA', 'Javascript']
+          'Speed & Performance: I’ve been heavily focused on making our storefronts faster. I use React and Next.js to implement things like code splitting and lazy loading—basically making sure the site only loads what it needs, which really helped drop our Time to Interactive (TTI).',
+          'Modern API Design: I’m the go-to for setting up our data layers. I use GraphQL and TypeScript to build APIs that are not just fast, but also "type-safe," which saves the team a lot of time on debugging.',
+          'Security & Auth: I took ownership of our security protocols, specifically hardening the app against XSS and CORS issues. I also built out our authentication flows to make sure customer data stays locked down.',
+          'Merchant Tools: I built a system of UI components in TypeScript that lets merchants customize their themes on the fly. It turned out to be a huge win for user engagement.',
+          'Team Collaboration: I’m deep in the SDLC every day, working through code reviews and design sessions to make sure we’re hitting our internal quality bars and keeping the architecture clean.',
+        ],
+        technologies: ['React', 'Next.js', 'TypeScript', 'GraphQL', 'Shopify', 'Cypress', 'Javascript']
+        
       },
 
       {
@@ -92,14 +92,13 @@ export default {
         startYear: '2022',
         endYear: '2024',
         details: [
-          'End-to-End Case Life Cycle Development: Designed and implemented processes for diverse applications, ensuring scalability and maintainability.',
-          'API Integration: Configured REST APIs and services using REST connectors, seamlessly managing customer records through connectors, endpoint URLs, and Data Transforms.',
-          'Data Accuracy Improvement: Enhanced data accuracy by 15% with Data Transforms and Data Pages, streamlining operations for better performance.',
-          'Process Reliability: Reduced SLA violations by 10% through the creation and management of Service-Level Agreements (SLAs) with escalation protocols for timely task completion.',
-          'User Interface Enhancement: Developed Business Process Flows, Flow Actions, and UI components using CSS, HTML, and JavaScript to improve UI consistency and user experience.',
-          'Debugging Expertise: Leveraged tools like Tracer, Live UI, and Clipboard for effective issue resolution, ensuring smooth application operation.',
-                  ],
-        technologies: ['Pega', 'Agile', 'Java', 'REST API', 'SQL', 'SLA', 'Javascript']
+          'Enterprise Solutions: I spent two years building out complex case life cycles for banking and insurance clients using Pega BPM. I focused on making these systems scalable so they would not break as the user base grew.',
+          'System Integration: I handled the "pipes" between systems, configuring REST APIs and messaging services to keep customer records synced up across different platforms.',
+          'Process Efficiency: I managed to cut down our SLA violations by 10% just by re-working our escalation logic and fine-tuning how we used Data Transforms and Data Pages.',
+          'Agile Development: We worked in a fast-paced Agile/Scrum setup. I was a big advocate for TDD (Test-Driven Development), using JUnit to catch bugs before they ever hit production.',
+          'Deep-Dive Debugging: When things broke, I used tools like Tracer and Live UI to get under the hood and fix issues fast, keeping our uptime close to 100%.'
+],
+        technologies: ['Pega', 'Agile', 'Java', 'REST API', 'SQL', 'SLA', 'JUnit']
       }
     ];
     
