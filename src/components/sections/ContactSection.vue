@@ -1,10 +1,6 @@
 <template>
   <section id="contact" class="contact-section" :class="{ 'dark-mode': isDarkMode }">
     <div class="container">
-      <div class="section-title">
-        <h2>Get In Touch</h2>
-      </div>
-      
       <!-- <div class="info-items">
             <div class="info-item">
               <div class="icon-container">
@@ -18,8 +14,8 @@
       </div> -->
 
       <div class="contact-content">
+        <h3 class="contact-heading">Contact Information</h3>
         <div class="contact-info" :class="{ 'visible': isInView }">
-          <h3>Contact Information</h3>
           <p>Feel free to reach out to me. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
           
           <div class="info-items">
@@ -58,78 +54,34 @@
               <i class="fab fa-instagram"></i>
             </a>
           </div>
-        </div>
-        
-        <div class="contact-form" :class="{ 'visible': isInView }">
-          <h3>Send Message</h3>
-          <form
-            @submit.prevent="submitForm"
-          >
-            
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input 
-                type="text" 
-                id="name" 
-                name="name"
-                v-model="formData.name" 
-                required 
-                placeholder="Your Name"
-              >
-            </div>
-            
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email"
-                v-model="formData.email" 
-                required 
-                placeholder="Your Email"
-              >
-            </div>
-            
-            <div class="form-group">
-              <label for="subject">Subject</label>
-              <input 
-                type="text" 
-                id="subject" 
-                name="subject"
-                v-model="formData.subject" 
-                required 
-                placeholder="Subject"
-              >
-            </div>
-            
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea 
-                id="message" 
-                name="message"
-                v-model="formData.message" 
-                required 
-                placeholder="Your Message"
-              ></textarea>
-            </div>
 
-            <button type="submit" class="btn" :disabled="isSubmitting">
-              <span v-if="isSubmitting"><i class="fas fa-spinner fa-spin"></i> Sending...</span>
-              <span v-else>Send Message</span>
-            </button>
-          </form>
-          
-          <div v-if="formStatus.show" class="form-status" :class="{ 'success': formStatus.success }">
-            {{ formStatus.message }}
-          </div>
+          <button type="button" class="get-in-touch-btn" @click="openTallyForm">
+            <i class="fas fa-paper-plane"></i>
+            <span>Get in Touch</span>
+          </button>
         </div>
+      </div>
+    </div>
+
+    <div v-if="showTallyModal" class="tally-modal" @click.self="closeTallyForm">
+      <div class="tally-modal-content">
+        <button type="button" class="tally-close-btn" @click="closeTallyForm" aria-label="Close form">
+          <i class="fas fa-times"></i>
+        </button>
+        <iframe
+          :src="tallyFormUrl"
+          title="Get in Touch Form"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+        ></iframe>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import { ref, reactive, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 export default {
   name: 'ContactSection',
@@ -141,78 +93,17 @@ export default {
   },
   setup() {
     const isInView = ref(false);
-    const isSubmitting = ref(false);
-    
-    const formData = reactive({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
-    
-    const formStatus = reactive({
-      show: false,
-      success: false,
-      message: ''
-    });
-    
-    const submitForm = async () => {
-      // Set submitting state
-      isSubmitting.value = true;
+    const showTallyModal = ref(false);
+    const tallyFormUrl = 'https://tally.so/r/Y5Z8Gz';
 
-      try {
-        // Send form data to Vercel API
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            subject: formData.subject,
-            message: formData.message
-          })
-        });
+    const openTallyForm = () => {
+      showTallyModal.value = true;
+      document.body.style.overflow = 'hidden';
+    };
 
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          // Show success message
-          formStatus.show = true;
-          formStatus.success = true;
-          formStatus.message = result.message || 'Your message has been sent successfully!';
-
-          // Reset form
-          formData.name = '';
-          formData.email = '';
-          formData.subject = '';
-          formData.message = '';
-        } else {
-          // Show error message
-          formStatus.show = true;
-          formStatus.success = false;
-          formStatus.message = result.error || 'There was a problem sending your message. Please try again.';
-        }
-
-        // Hide status message after 5 seconds
-        setTimeout(() => {
-          formStatus.show = false;
-        }, 5000);
-      } catch (error) {
-        // Show error message for network issues
-        formStatus.show = true;
-        formStatus.success = false;
-        formStatus.message = 'There was a problem sending your message. Please try again.';
-
-        // Hide status message after 5 seconds
-        setTimeout(() => {
-          formStatus.show = false;
-        }, 5000);
-      } finally {
-        // Reset submitting state
-        isSubmitting.value = false;
-      }
+    const closeTallyForm = () => {
+      showTallyModal.value = false;
+      document.body.style.overflow = 'auto';
     };
     
     const checkIfInView = () => {
@@ -239,14 +130,15 @@ export default {
     onUnmounted(() => {
       window.removeEventListener('scroll', checkIfInView);
       window.removeEventListener('resize', checkIfInView);
+      document.body.style.overflow = 'auto';
     });
     
     return {
       isInView,
-      formData,
-      isSubmitting,
-      formStatus,
-      submitForm
+      openTallyForm,
+      closeTallyForm,
+      showTallyModal,
+      tallyFormUrl
     };
   }
 };
@@ -266,15 +158,51 @@ export default {
 
 .contact-content {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr;
   gap: $spacing-xxl;
-  
-  @media (max-width: $breakpoint-md) {
-    grid-template-columns: 1fr;
+}
+
+.contact-heading {
+  text-align: center;
+  font-size: clamp(1.45rem, 2.2vw, 1.9rem);
+  margin-bottom: -$spacing-md;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  justify-self: center;
+  padding: 0.42rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgba($primary-color, 0.24);
+  background: linear-gradient(135deg, rgba($primary-color, 0.1), rgba(255, 255, 255, 0.78));
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+  letter-spacing: 0.01em;
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: $primary-color;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px rgba($primary-color, 0.14);
+  }
+
+  .dark-mode & {
+    border-color: rgba($primary-color, 0.32);
+    background: linear-gradient(135deg, rgba($primary-color, 0.18), rgba(15, 23, 42, 0.76));
+    box-shadow: 0 10px 24px rgba(2, 6, 23, 0.4);
   }
 }
 
 .contact-info {
+  max-width: 760px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba($primary-color, 0.16);
+  border-radius: $border-radius-lg;
+  padding: $spacing-xl;
+  box-shadow: $shadow-sm;
+  text-align: center;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease, transform 0.8s ease;
@@ -284,27 +212,9 @@ export default {
     transform: translateY(0);
   }
   
-  h3 {
-    margin-bottom: $spacing-md;
-    position: relative;
-    display: inline-block;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 50px;
-      height: 2px;
-      background-color: $primary-color;
-      
-      .dark-mode & {
-        background-color: lighten($primary-color, 10%);
-      }
-    }
-  }
-  
   > p {
+    font-size: $font-size-lg;
+    line-height: 1.8;
     margin-bottom: $spacing-xl;
     color: $light-secondary-text;
     
@@ -312,15 +222,35 @@ export default {
       color: $dark-secondary-text;
     }
   }
+
+  .dark-mode & {
+    background-color: rgba(23, 27, 37, 0.86);
+    border-color: rgba($primary-color, 0.28);
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .contact-info {
+    padding: $spacing-xl;
+  }
 }
 
 .info-items {
   margin-bottom: $spacing-xl;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $spacing-lg;
+
+  @media (max-width: $breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .info-item {
   display: flex;
-  margin-bottom: $spacing-lg;
+  justify-content: center;
+  margin-bottom: 0;
+  text-align: left;
   
   .icon-container {
     width: 50px;
@@ -370,7 +300,9 @@ export default {
 
 .social-links {
   display: flex;
+  justify-content: center;
   gap: $spacing-md;
+  margin-bottom: $spacing-lg;
   
   a {
     display: flex;
@@ -401,92 +333,74 @@ export default {
   }
 }
 
-.contact-form {
-  background-color: $light-card-bg;
-  border-radius: $border-radius-lg;
-  padding: $spacing-xl;
-  box-shadow: $shadow-md;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
-  
-  &.visible {
-    opacity: 1;
-    transform: translateY(0);
+.get-in-touch-btn {
+  width: min(100%, 280px);
+  margin: 0 auto;
+  min-height: 46px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #4b5563, #9ca3af);
+  color: #f9fafb;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  cursor: pointer;
+  transition: transform $transition-fast, opacity $transition-fast;
+
+  &:hover {
+    transform: translateY(-2px);
+    opacity: 0.95;
   }
-  
-  h3 {
-    margin-bottom: $spacing-lg;
-    position: relative;
-    display: inline-block;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 50px;
-      height: 2px;
-      background-color: $primary-color;
-      
-      .dark-mode & {
-        background-color: lighten($primary-color, 10%);
-      }
-    }
-  }
-  
+
   .dark-mode & {
-    background-color: $dark-card-bg;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  }
-  
-  .form-group {
-    margin-bottom: $spacing-md;
-    
-    label {
-      display: block;
-      margin-bottom: $spacing-xs;
-      color: $light-text;
-      font-weight: 500;
-      
-      .dark-mode & {
-        color: $dark-text;
-      }
-    }
-  }
-  
-  button {
-    width: 100%;
-    padding: $spacing-md;
-    
-    &:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
+    background: linear-gradient(135deg, #e5e7eb, #cbd5e1);
+    color: #111827;
   }
 }
 
-.form-status {
-  margin-top: $spacing-md;
+.tally-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2100;
   padding: $spacing-md;
-  border-radius: $border-radius-md;
-  text-align: center;
-  background-color: #f8d7da;
-  color: #721c24;
-  
-  &.success {
-    background-color: #d4edda;
-    color: #155724;
-    
-    .dark-mode & {
-      background-color: rgba(212, 237, 218, 0.2);
-      color: #a3e4b0;
-    }
-  }
-  
-  .dark-mode & {
-    background-color: rgba(248, 215, 218, 0.2);
-    color: #f8a5ac;
+}
+
+.tally-modal-content {
+  width: min(920px, 96vw);
+  height: min(86vh, 860px);
+  background: #0b0f17;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  border-radius: $border-radius-lg;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #fff;
   }
 }
+
+.tally-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.65);
+  color: #fff;
+  z-index: 2;
+  cursor: pointer;
+}
+
 </style>

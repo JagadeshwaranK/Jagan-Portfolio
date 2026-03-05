@@ -72,23 +72,6 @@ vercel
 2. Connect your GitHub repository to Vercel
 3. Vercel will automatically deploy on every push to main branch
 
-## Environment Variables
-
-Create a `.env.local` file for local development:
-
-```env
-# Add your environment variables here
-# For example, email service API keys if you implement email sending
-```
-
-## Contact Form
-
-The contact form uses a serverless function (`/api/contact.js`) to handle form submissions. Currently, it logs submissions to the console. To enable email notifications:
-
-1. Choose an email service (SendGrid, Mailgun, etc.)
-2. Add your API key to environment variables
-3. Uncomment and configure the email sending code in `api/contact.js`
-
 ## Project Structure
 
 ```
@@ -99,9 +82,6 @@ src/
 │   └── ui/          # Reusable UI components
 ├── utils/           # Utility functions
 └── main.js          # Application entry point
-
-api/                 # Serverless functions (Vercel)
-├── contact.js       # Contact form handler
 
 public/              # Static files
 vercel.json          # Vercel configuration

@@ -16,7 +16,6 @@
     "@vercel/analytics": "^1.6.1",
     "@vue/cli-service": "^5.0.8",
     "@vue/compiler-sfc": "^3.5.13",
-    "resend": "^6.8.0",
     "sass": "^1.86.0",
     "sass-loader": "^16.0.5",
     "typeit": "^8.8.7",

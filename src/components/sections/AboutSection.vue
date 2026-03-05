@@ -6,34 +6,34 @@
       </div>
       
       <div class="about-content">
-        <div class="about-image" :class="{ 'visible': isInView }">
+        <!-- <div class="about-image" :class="{ 'visible': isInView }">
           <div class="image-container">
             <img src="@/assets/images/Jagadesh.jpg" alt="Jagadeshwaran K" class="profile-image" />
           </div>
-        </div>
+        </div> -->
         
         <div class="about-text" :class="{ 'visible': isInView }">
           <h3>Hello, I'm <span class="highlight">Jagadeshwaran</span></h3>
           <p class="subtitle">Associate Software Engineer </p>
           
           <p>
-            I'm a passionate software engineer and Pega developer with expertise in creating 
-            robust, user-friendly applications. With a strong foundation in software design principles
-            and a keen eye for detail, I strive to develop solutions that are not only functional
-            but also intuitive and elegant.
+            I enjoy building digital products that feel fast, clear, and dependable. My core stack is
+            <span class="copy-highlight">React</span>, <span class="copy-highlight">Next.js</span>, and
+            <span class="copy-highlight">TypeScript</span>, and I focus on writing code that is easy to maintain as products grow.
           </p>
-        
-          
-          <div class="personal-info">
-            <div class="info-item">
-              <i class="fas fa-envelope"></i>
-              <span>jagadesh.k3008@gmail.com</span>
-            </div>
-            <div class="info-item">
-              <i class="fas fa-phone"></i>
-              <span>+91 782606047</span>
-            </div>
-          </div>
+          <p>
+            At Glancito, I worked on improving storefront speed and overall UX by optimizing load behavior, building reusable components, and developing
+            <span class="copy-highlight">Shopify</span> features in <span class="copy-highlight">Liquid</span>. I also handled plugin and
+            <span class="copy-highlight">checkout page integrations</span> to ensure a smooth buying experience.
+          </p>
+          <p>
+            At Cognizant, I delivered enterprise workflows in Pega, improved process reliability, and supported integrations across business systems.
+          </p>
+          <p>
+            I care about outcomes as much as implementation: <span class="copy-highlight">performance</span>,
+            <span class="copy-highlight">scalability</span>, <span class="copy-highlight">security</span>,
+            and smooth <span class="copy-highlight">team collaboration</span> to ship production-ready features with confidence.
+          </p>
           
           <div class="about-actions" :class="{ 'visible': isInView }">
             <router-link to="/contact" class="btn about-btn about-btn-primary">
@@ -115,27 +115,14 @@ export default {
     .highlight {
       color: lighten($primary-color, 10%);
     }
-    
-    .info-item {
-      i {
-        color: lighten($primary-color, 10%);
-      }
-      
-      span {
-        color: $dark-secondary-text;
-      }
-    }
   }
 }
 
 .about-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: $spacing-xxl;
-  
-  @media (max-width: $breakpoint-md) {
-    grid-template-columns: 1fr;
-  }
+  justify-items: center;
 }
 
 .about-image {
@@ -181,6 +168,9 @@ export default {
 }
 
 .about-text {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: left;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
@@ -215,30 +205,20 @@ export default {
     margin-bottom: $spacing-md;
     line-height: 1.8;
   }
-}
 
-.personal-info {
-  margin: $spacing-xl 0;
-  
-  .info-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: $spacing-md;
-    
-    i {
-      width: 30px;
-      color: $primary-color;
-      font-size: $font-size-lg;
-    }
-    
-    span {
-      color: $light-secondary-text;
+  .copy-highlight {
+    color: $primary-color;
+    font-weight: 600;
+
+    .dark-mode & {
+      color: lighten($primary-color, 10%);
     }
   }
 }
 
 .about-actions {
   display: flex;
+  justify-content: flex-start;
   gap: $spacing-md;
   flex-wrap: wrap;
   
