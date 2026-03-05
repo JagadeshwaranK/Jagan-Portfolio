@@ -127,7 +127,7 @@ export default {
     }
     
     .auto-type {
-      color: lighten($primary-color, 10%);
+      color: #d1d5db;
     }
   }
 }
@@ -159,7 +159,7 @@ export default {
 
 .auto-type {
   font-size: clamp($font-size-xl, 4vw, $font-size-xxl);
-  color: $primary-color;
+  color: #374151;
   margin-bottom: $spacing-xxl;
   font-weight: 500;
   min-height: 50px;
@@ -227,14 +227,14 @@ export default {
 }
 
 .home-btn-primary {
-  background: linear-gradient(135deg, #4b5563, #9ca3af);
+  background: #4b5563;
   color: #f9fafb;
-  box-shadow: 0 10px 22px rgba(75, 85, 99, 0.34);
+  box-shadow: none;
 }
 
 .home-btn-secondary {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75), rgba(229, 231, 235, 0.65));
-  border-color: rgba(107, 114, 128, 0.55);
+  background: transparent;
+  border-color: #6b7280;
   color: #374151;
 }
 
@@ -247,11 +247,22 @@ export default {
 }
 
 .dark-mode .home-btn-primary:hover {
-  color: #f9fafb;
+  color: #111827;
 }
 
 .dark-mode .home-btn-secondary:hover {
-  color: #374151;
+  color: #e5e7eb;
+}
+
+.dark-mode .home-btn-primary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.dark-mode .home-btn-secondary {
+  background: transparent;
+  border-color: #9ca3af;
+  color: #e5e7eb;
 }
 
 .fade-in {

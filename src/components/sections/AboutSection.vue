@@ -289,14 +289,14 @@ export default {
 }
 
 .about-btn-primary {
-  background: linear-gradient(135deg, #4b5563, #9ca3af);
+  background: #4b5563;
   color: #f9fafb;
-  box-shadow: 0 10px 22px rgba(75, 85, 99, 0.34);
+  box-shadow: none;
 }
 
 .about-btn-secondary {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75), rgba(229, 231, 235, 0.65));
-  border-color: rgba(107, 114, 128, 0.55);
+  background: transparent;
+  border-color: #6b7280;
   color: #374151;
 }
 
@@ -309,11 +309,22 @@ export default {
 }
 
 .dark-mode .about-btn-primary:hover {
-  color: #f9fafb;
+  color: #111827;
 }
 
 .dark-mode .about-btn-secondary:hover {
-  color: #374151;
+  color: #e5e7eb;
+}
+
+.dark-mode .about-btn-primary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.dark-mode .about-btn-secondary {
+  background: transparent;
+  border-color: #9ca3af;
+  color: #e5e7eb;
 }
 
 </style>

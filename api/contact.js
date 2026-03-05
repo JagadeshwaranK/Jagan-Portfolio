@@ -53,9 +53,12 @@ export default async function handler(req, res) {
       const resend = new Resend(process.env.RESEND_API_KEY);
 
       try {
+        const fromAddress = process.env.EMAIL_FROM || 'onboarding@resend.dev';
+        const toAddress = process.env.EMAIL_TO || 'jagadesh.k3008@gmail.com';
+
         const emailData = await resend.emails.send({
-          from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
-          to: process.env.EMAIL_TO || 'jagadesh.k3008@gmail.com',
+          from: fromAddress,
+          to: toAddress,
           subject: `Portfolio Contact: ${subject}`,
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -78,7 +81,22 @@ export default async function handler(req, res) {
         console.log('Email sent successfully:', emailData);
       } catch (emailError) {
         console.error('Failed to send email:', emailError);
-        // Don't fail the request if email fails, just log it
+        const message = String(emailError?.message || '');
+        const resendRestriction = message.includes('resend.dev domain is for testing');
+
+        if (resendRestriction) {
+          res.status(400).json({
+            success: false,
+            error: 'Resend test-domain restriction: verify a domain and set EMAIL_FROM to that domain to send to other recipients.'
+          });
+          return;
+        }
+
+        res.status(502).json({
+          success: false,
+          error: 'Email delivery failed. Please verify RESEND_API_KEY, EMAIL_FROM, and EMAIL_TO configuration.'
+        });
+        return;
       }
     } else {
       console.log('Resend not configured - email not sent');
