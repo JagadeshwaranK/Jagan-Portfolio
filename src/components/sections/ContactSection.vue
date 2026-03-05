@@ -94,7 +94,7 @@ export default {
   setup() {
     const isInView = ref(false);
     const showTallyModal = ref(false);
-    const tallyFormUrl = 'https://tally.so/r/Y5Z8Gz';
+    const tallyFormUrl = 'https://tally.so/r/0QEXby';
 
     const openTallyForm = () => {
       showTallyModal.value = true;
