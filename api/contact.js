@@ -51,11 +51,18 @@ export default async function handler(req, res) {
     if (process.env.RESEND_API_KEY) {
       const { Resend } = require('resend');
       const resend = new Resend(process.env.RESEND_API_KEY);
+      const fromAddress = process.env.EMAIL_FROM;
+      const toAddress = process.env.EMAIL_TO;
+
+      if (!fromAddress || !toAddress) {
+        res.status(500).json({
+          success: false,
+          error: 'Email is not fully configured. Set EMAIL_FROM and EMAIL_TO environment variables.'
+        });
+        return;
+      }
 
       try {
-        const fromAddress = process.env.EMAIL_FROM || 'onboarding@resend.dev';
-        const toAddress = process.env.EMAIL_TO || 'jagadesh.k3008@gmail.com';
-
         const emailData = await resend.emails.send({
           from: fromAddress,
           to: toAddress,
