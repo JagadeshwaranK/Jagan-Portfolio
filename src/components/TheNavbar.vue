@@ -16,9 +16,6 @@
       
       <div class="navbar-actions">
         <DarkModeToggle :isDarkMode="isDarkMode" @toggle="$emit('toggle-dark-mode')" />
-        <button class="mobile-menu-toggle" @click="toggleMobileMenu">
-          <i :class="mobileMenuOpen ? 'fas fa-times' : 'fas fa-bars'"></i>
-        </button>
       </div>
     </div>
   </nav>
@@ -42,35 +39,9 @@ export default {
   emits: ['toggle-dark-mode'],
   setup() {
     const isScrolled = ref(false);
-    const mobileMenuOpen = ref(false);
-    
-    const navItems = [
-      { id: 'home', label: 'Home' },
-      { id: 'about', label: 'About' },
-      { id: 'experience', label: 'Experience' },
-      { id: 'skills', label: 'Skills' },
-      { id: 'projects', label: 'Projects' },
-      { id: 'certifications', label: 'Certifications' },
-      { id: 'contact', label: 'Contact' }
-    ];
     
     const handleScroll = () => {
       isScrolled.value = window.scrollY > 50;
-    };
-    
-    const toggleMobileMenu = () => {
-      mobileMenuOpen.value = !mobileMenuOpen.value;
-      
-      if (mobileMenuOpen.value) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = 'auto';
-      }
-    };
-    
-    const closeMobileMenu = () => {
-      mobileMenuOpen.value = false;
-      document.body.style.overflow = 'auto';
     };
     
     onMounted(() => {
@@ -83,11 +54,7 @@ export default {
     });
     
     return {
-      isScrolled,
-      navItems,
-      mobileMenuOpen,
-      toggleMobileMenu,
-      closeMobileMenu
+      isScrolled
     };
   }
 };
@@ -134,9 +101,6 @@ export default {
       }
     }
     
-    .mobile-menu-toggle {
-      color: $dark-text;
-    }
   }
 }
 
@@ -209,60 +173,5 @@ export default {
 .navbar-actions {
   display: flex;
   align-items: center;
-}
-
-.mobile-menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: $font-size-lg;
-  cursor: pointer;
-  color: $light-text;
-  margin-left: $spacing-md;
-  
-  &:focus {
-    outline: none;
-  }
-}
-
-@media (max-width: $breakpoint-md) {
-  .navbar-menu {
-    position: fixed;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    height: 0;
-    background-color: $light-bg;
-    transition: all $transition-normal;
-    overflow: hidden;
-    
-    &.active {
-      height: calc(100vh - 70px);
-    }
-    
-    .dark-mode & {
-      background-color: $dark-bg;
-    }
-  }
-  
-  .navbar-links {
-    flex-direction: column;
-    padding: $spacing-xl;
-    
-    li {
-      margin: $spacing-md 0;
-      margin-left: 0;
-      
-      a {
-        display: block;
-        font-size: $font-size-lg;
-        padding: $spacing-md 0;
-      }
-    }
-  }
-  
-  .mobile-menu-toggle {
-    display: block;
-  }
 }
 </style>

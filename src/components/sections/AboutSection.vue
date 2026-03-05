@@ -230,7 +230,10 @@ export default {
       width: 100%;
       max-width: 100%;
       text-align: center;
-      color: $light-text;
+    }
+
+    .about-btn-primary {
+      color: #f9fafb;
     }
   }
 }

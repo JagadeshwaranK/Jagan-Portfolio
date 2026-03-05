@@ -150,9 +150,16 @@ export default {
 .contact-section {
   background-color: dark-bg;
   transition: background-color $transition-normal;
+  overflow-x: clip;
   
   &.dark-mode {
     background-color: $dark-bg;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .contact-section {
+    padding-bottom: calc(120px + env(safe-area-inset-bottom));
   }
 }
 
@@ -160,6 +167,8 @@ export default {
   display: grid;
   grid-template-columns: 1fr;
   gap: $spacing-xxl;
+  width: 100%;
+  min-width: 0;
 }
 
 .contact-heading {
@@ -176,6 +185,7 @@ export default {
   background: linear-gradient(135deg, rgba($primary-color, 0.1), rgba(255, 255, 255, 0.78));
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
   letter-spacing: 0.01em;
+  max-width: 100%;
 
   &::before {
     content: '';
@@ -195,6 +205,7 @@ export default {
 }
 
 .contact-info {
+  width: 100%;
   max-width: 760px;
   margin: 0 auto;
   background-color: rgba(255, 255, 255, 0.72);
@@ -203,6 +214,8 @@ export default {
   padding: $spacing-xl;
   box-shadow: $shadow-sm;
   text-align: center;
+  min-width: 0;
+  overflow-wrap: anywhere;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease, transform 0.8s ease;
@@ -231,7 +244,7 @@ export default {
 
 @media (max-width: $breakpoint-md) {
   .contact-info {
-    padding: $spacing-xl;
+    padding: $spacing-lg;
   }
 }
 
@@ -240,8 +253,9 @@ export default {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: $spacing-lg;
+  min-width: 0;
 
-  @media (max-width: $breakpoint-sm) {
+  @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
   }
 }
@@ -249,8 +263,10 @@ export default {
 .info-item {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   margin-bottom: 0;
   text-align: left;
+  min-width: 0;
   
   .icon-container {
     width: 50px;
@@ -261,6 +277,7 @@ export default {
     align-items: center;
     justify-content: center;
     margin-right: $spacing-md;
+    flex-shrink: 0;
     
     i {
       color: $primary-color;
@@ -277,6 +294,8 @@ export default {
   }
   
   .info-details {
+    min-width: 0;
+
     h4 {
       margin-bottom: $spacing-xs;
       color: $light-text;
@@ -290,6 +309,9 @@ export default {
     p {
       color: $light-secondary-text;
       margin-bottom: 0;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      line-height: 1.45;
       
       .dark-mode & {
         color: $dark-secondary-text;
@@ -301,6 +323,7 @@ export default {
 .social-links {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: $spacing-md;
   margin-bottom: $spacing-lg;
   
@@ -386,6 +409,68 @@ export default {
     height: 100%;
     border: 0;
     background: #fff;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .contact-content {
+    gap: $spacing-xl;
+  }
+
+  .contact-heading {
+    font-size: clamp(1.2rem, 5.4vw, 1.45rem);
+    padding: 0.38rem 0.75rem;
+    gap: 8px;
+  }
+
+  .contact-info {
+    padding: $spacing-md;
+    border-radius: $border-radius-md;
+
+    > p {
+      font-size: $font-size-base;
+      line-height: 1.65;
+      margin-bottom: $spacing-lg;
+    }
+  }
+
+  .get-in-touch-btn {
+    margin-bottom: 4px;
+  }
+
+  .info-items {
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+  }
+
+  .info-item {
+    justify-content: flex-start;
+
+    .icon-container {
+      width: 42px;
+      height: 42px;
+      margin-right: $spacing-sm;
+    }
+
+    .info-details {
+      h4 {
+        font-size: $font-size-sm;
+      }
+
+      p {
+        font-size: $font-size-sm;
+      }
+    }
+  }
+
+  .tally-modal {
+    padding: $spacing-sm;
+  }
+
+  .tally-modal-content {
+    width: 100%;
+    height: min(92vh, 860px);
+    border-radius: $border-radius-md;
   }
 }
 
