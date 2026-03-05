@@ -5,31 +5,28 @@
         <h2>Work Experience</h2>
       </div>
       
-      <div class="experience-timeline" ref="timeline">
+      <div class="experience-list" ref="timeline">
         <div
           v-for="(exp, index) in experiences"
           :key="index"
-          class="timeline-item"
+          class="experience-item"
           :class="{ 'visible': isInView }"
-          :style="{ transitionDelay: `${index * 0.2}s` }"
+          :style="{ transitionDelay: `${index * 0.12}s` }"
         >
-          <div class="timeline-connector">
-            <div class="timeline-dot"></div>
-            <div class="timeline-line" v-if="index < experiences.length - 1"></div>
+          <div class="experience-meta">
+            <span class="timeframe">{{ exp.startYear }} - {{ exp.endYear || 'Present' }}</span>
+            <p class="location">
+              <i class="fas fa-map-marker-alt"></i> {{ exp.location }}
+            </p>
           </div>
 
-          <div class="timeline-card" :class="{ 'dark-mode': isDarkMode }">
-            <div class="timeline-header">
+          <div class="experience-card" :class="{ 'dark-mode': isDarkMode }">
+            <div class="experience-header">
               <h3>{{ exp.role }}</h3>
-              <span class="timeframe">{{ exp.startYear }} - {{ exp.endYear || 'Present' }}</span>
+              <h4>{{ exp.company }}</h4>
             </div>
 
-            <div class="timeline-body">
-              <h4>{{ exp.company }}</h4>
-              <p class="location">
-                <i class="fas fa-map-marker-alt"></i> {{ exp.location }}
-              </p>
-
+            <div class="experience-body">
               <ul class="responsibilities">
                 <li v-for="(detail, detailIndex) in exp.details" :key="detailIndex">
                   {{ detail }}
@@ -139,7 +136,7 @@ export default {
 @import '../../assets/styles/variables';
 
 .experience-section {
-  background-color: dark-bg;
+  background-color: $light-bg;
   transition: background-color $transition-normal;
 
   &.dark-mode {
@@ -147,111 +144,103 @@ export default {
   }
 }
 
-.experience-timeline {
-  max-width: 900px;
+.experience-list {
+  max-width: 980px;
   margin: 0 auto;
-  position: relative;
-  padding: $spacing-xl 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
 }
 
-.timeline-item {
-  display: flex;
-  margin-bottom: $spacing-xl;
+.experience-item {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: $spacing-lg;
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
+  transform: translateY(18px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
 
   &.visible {
     opacity: 1;
     transform: translateY(0);
   }
+
+  @media (max-width: $breakpoint-lg) {
+    grid-template-columns: 180px 1fr;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+  }
 }
 
-.timeline-connector {
-  flex: 0 0 60px;
+.experience-meta {
   display: flex;
   flex-direction: column;
+  gap: $spacing-sm;
+  padding-top: $spacing-sm;
+
+  .dark-mode & {
+    color: $dark-secondary-text;
+  }
+}
+
+.timeframe {
+  color: $primary-color;
+  font-size: $font-size-sm;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+
+  .dark-mode & {
+    color: lighten($primary-color, 10%);
+  }
+}
+
+.location {
+  color: $light-secondary-text;
+  font-size: $font-size-sm;
+  margin: 0;
+  display: flex;
   align-items: center;
-  position: relative;
+  gap: $spacing-xs;
 
-  @media (max-width: $breakpoint-md) {
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-    margin-right: $spacing-md;
-  }
-}
-
-.timeline-dot {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background-color: $primary-color;
-  position: relative;
-  z-index: 2;
-  margin-bottom: $spacing-sm;
-
-  @media (max-width: $breakpoint-md) {
-    margin-right: $spacing-sm;
-    margin-bottom: 0;
+  i {
+    color: $primary-color;
   }
 
   .dark-mode & {
-    background-color: lighten($primary-color, 10%);
+    color: $dark-secondary-text;
   }
 }
 
-.timeline-line {
-  flex: 1;
-  width: 2px;
-  background-color: $light-border;
-  margin-left: 7px;
-
-  @media (max-width: $breakpoint-md) {
-    width: 100%;
-    height: 2px;
-    margin-left: 0;
-    margin-top: 7px;
-  }
-
-  .dark-mode & {
-    background-color: $dark-border;
-  }
-}
-
-.timeline-card {
-  flex: 1;
+.experience-card {
   background: white;
   border-radius: $border-radius-lg;
-  padding: $spacing-lg;
-  box-shadow: $shadow-md;
+  padding: $spacing-lg $spacing-xl;
+  box-shadow: $shadow-sm;
   transition: all $transition-normal;
-  position: relative;
-  border: 1px solid transparent;
+  border: 1px solid $light-border;
 
   &:hover {
-    border: 1px solid $primary-color;
-    box-shadow: $shadow-lg;
+    border-color: rgba($primary-color, 0.35);
+    box-shadow: $shadow-md;
   }
 
   .dark-mode & {
     background: $dark-card-bg;
-    border: 1px solid $dark-border;
+    border-color: $dark-border;
 
     &:hover {
-      border: 1px solid lighten($primary-color, 10%);
+      border-color: rgba($primary-color, 0.55);
     }
   }
 }
 
-.timeline-header {
+.experience-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: $spacing-xs;
   margin-bottom: $spacing-md;
   padding-bottom: $spacing-md;
   border-bottom: 1px solid $light-border;
@@ -266,52 +255,22 @@ export default {
     }
   }
 
-  .timeframe {
-    color: $primary-color;
-    font-size: $font-size-sm;
+  h4 {
+    margin: 0;
+    color: $light-secondary-text;
+    font-size: $font-size-base;
     font-weight: 600;
-    white-space: nowrap;
 
     .dark-mode & {
-      color: lighten($primary-color, 10%);
+      color: $dark-secondary-text;
     }
   }
 }
 
-.timeline-body {
-  h4 {
-    color: $light-secondary-text;
-    margin-bottom: $spacing-sm;
-    font-weight: 600;
-
-    .dark-mode & {
-      color: $dark-secondary-text;
-    }
-  }
-
-  .location {
-    color: $light-secondary-text;
-    font-size: $font-size-sm;
-    margin-bottom: $spacing-md;
-    display: flex;
-    align-items: center;
-
-    i {
-      margin-right: $spacing-xs;
-      color: $primary-color;
-
-      .dark-mode & {
-        color: lighten($primary-color, 10%);
-      }
-    }
-
-    .dark-mode & {
-      color: $dark-secondary-text;
-    }
-  }
-
+.experience-body {
   .responsibilities {
-    margin-left: $spacing-lg;
+    margin: 0;
+    padding-left: $spacing-lg;
     margin-bottom: $spacing-lg;
 
     li {
@@ -350,6 +309,19 @@ export default {
         color: lighten($primary-color, 10%);
       }
     }
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .experience-meta {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0;
+  }
+
+  .experience-card {
+    padding: $spacing-md $spacing-lg;
   }
 }
 </style>

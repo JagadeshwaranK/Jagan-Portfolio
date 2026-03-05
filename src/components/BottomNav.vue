@@ -1,36 +1,25 @@
 <template>
-  <nav class="dock-nav" :class="{ 'visible': isVisible }">
-    <div class="dock-container">
+  <nav class="bottom-nav" :class="{ 'is-visible': isVisible, 'dark-mode': isDarkMode }">
+    <div class="bottom-nav__container">
       <router-link
-        v-for="(item, index) in navItems"
+        v-for="item in navItems"
         :key="item.path"
         :to="item.path"
-        class="dock-item"
-        :class="{ 'active': isActive(item.path) }"
-        :style="{ animationDelay: `${index * 0.05}s` }"
+        class="bottom-nav__item"
+        :data-hint="item.label"
+        :aria-label="item.label"
       >
-        <div class="dock-label">{{ item.label }}</div>
-        <div class="dock-icon">
+        <span class="bottom-nav__icon">
           <i :class="item.icon"></i>
-        </div>
-        <div class="dock-indicator" v-if="isActive(item.path)"></div>
+        </span>
+        <span class="bottom-nav__label">{{ item.label }}</span>
       </router-link>
-    </div>
-
-    <!-- Tooltip -->
-    <div
-      class="dock-tooltip"
-      v-if="tooltip.visible"
-      :style="{ left: tooltip.x + 'px' }"
-    >
-      {{ tooltip.text }}
     </div>
   </nav>
 </template>
 
 <script>
-import { ref, reactive, onMounted, onUnmounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { ref, onMounted } from 'vue';
 
 export default {
   name: 'BottomNav',
@@ -41,60 +30,25 @@ export default {
     }
   },
   setup() {
-    const route = useRoute();
-    const isVisible = ref(true);
-    const lastScrollY = ref(0);
+    const isVisible = ref(false);
 
     const navItems = [
       { path: '/', label: 'Home', icon: 'fas fa-home' },
       { path: '/about', label: 'About', icon: 'fas fa-user' },
       { path: '/experience', label: 'Experience', icon: 'fas fa-briefcase' },
-      { path: '/skills', label: 'Skills', icon: 'fas fa-code' },
-      { path: '/projects', label: 'Projects', icon: 'fas fa-project-diagram' },
-      { path: '/certifications', label: 'Certifications', icon: 'fas fa-certificate' },
+      { path: '/skills', label: 'Skills', icon: 'fas fa-laptop-code' },
+      { path: '/projects', label: 'Projects', icon: 'fas fa-rocket' },
+      { path: '/certifications', label: 'Certifications', icon: 'fas fa-award' },
       { path: '/contact', label: 'Contact', icon: 'fas fa-envelope' }
     ];
 
-    const tooltip = reactive({
-      visible: false,
-      text: '',
-      x: 0
-    });
-
-    const isActive = (path) => {
-      return route.path === path;
-    };
-
-    const showTooltip = (text, event) => {
-      const dockItem = event.currentTarget;
-      const rect = dockItem.getBoundingClientRect();
-      const dockRect = dockItem.closest('.dock-container').getBoundingClientRect();
-
-      tooltip.text = text;
-      tooltip.x = rect.left + rect.width / 2 - dockRect.left;
-      tooltip.visible = true;
-    };
-
-    const hideTooltip = () => {
-      tooltip.visible = false;
-    };
-
     onMounted(() => {
-      // Initially visible
       isVisible.value = true;
-    });
-
-    onUnmounted(() => {
-      // No cleanup needed
     });
 
     return {
       navItems,
-      isActive,
-      isVisible,
-      tooltip,
-      showTooltip,
-      hideTooltip
+      isVisible
     };
   }
 };
@@ -103,317 +57,242 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/styles/variables';
 
-.dock-nav {
+.bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 100;
-  padding: 16px;
-  transform: translateY(100px);
+  z-index: 120;
+  padding: 10px;
   opacity: 0;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateY(14px);
+  transition: opacity $transition-normal, transform $transition-normal;
 
-  &.visible {
-    transform: translateY(0);
+  &.is-visible {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.dock-container {
-  max-width: 380px;
+.bottom-nav__container {
+  max-width: 390px;
+  width: min(100%, 390px);
   margin: 0 auto;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-  padding: 6px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 5px;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.14);
+  backdrop-filter: blur(14px);
+}
+
+.bottom-nav__item {
+  min-width: 0;
+  flex: 1 1 0;
+  height: 36px;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-
-  .dark-mode & {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
-  }
-}
-
-.expand-btn, .collapse-btn {
-  background: none;
-  border: none;
-  color: $light-secondary-text;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  margin: 0 4px;
-
-  &:hover {
-    background: rgba($primary-color, 0.1);
-    color: $primary-color;
-  }
-
-  .dark-mode & {
-    color: $dark-secondary-text;
-
-    &:hover {
-      background: rgba($primary-color, 0.2);
-      color: lighten($primary-color, 10%);
-    }
-  }
-}
-
-.dock-item {
+  gap: 0;
+  padding: 0 2px;
+  border-radius: 999px;
   position: relative;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 6px;
-  margin: 0 2px;
-  border-radius: 10px;
   text-decoration: none;
   color: $light-secondary-text;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  animation: dockSlideUp 0.6s ease backwards;
-
-  &:hover {
-    color: $primary-color;
-    transform: translateY(-6px);
-
-    .dock-icon {
-      transform: scale(1.1);
-      background: transparent;
-
-      i {
-        transform: scale(1.1);
-      }
-    }
-  }
-
-  &.active {
-    color: $primary-color;
-
-    .dock-icon {
-      background: transparent;
-      color: $primary-color;
-      box-shadow: none;
-    }
-  }
-
-  .dark-mode & {
-    color: $dark-secondary-text;
-
-    &:hover {
-      color: lighten($primary-color, 10%);
-    }
-
-    &.active {
-      color: lighten($primary-color, 10%);
-    }
-  }
+  transition: background-color $transition-fast, color $transition-fast, width 0.28s cubic-bezier(0.22, 1, 0.36, 1), padding 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.dock-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
+.bottom-nav__icon {
+  width: 16px;
+  height: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 3px;
-  background: transparent;
-  transition: all 0.3s ease;
 
   i {
-    font-size: 20px;
-    transition: all 0.3s ease;
-  }
-
-  .dark-mode & {
-    background: transparent;
+    font-size: 16px;
   }
 }
 
-.dock-label {
-  position: absolute;
-  top: -20px;
-  left: 0;
-  font-size: 11px;
-  font-weight: 500;
-  text-align: left;
-  max-width: 60px;
+.bottom-nav__label {
+  font-size: 0;
+  line-height: 1;
+  font-weight: 600;
+  max-width: 0;
+  opacity: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 2px 6px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(8px);
-  z-index: 10;
-  opacity: 0;
-  transform: translateY(-5px);
-  transition: all 0.3s ease;
-  pointer-events: none;
-
-  .dark-mode & {
-    background: rgba(26, 32, 44, 0.9);
-    color: white;
-  }
+  transform: translateX(-4px);
+  transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.25s ease, font-size 0.2s ease;
 }
 
-.dock-item:hover .dock-label {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.dock-indicator {
-  position: absolute;
-  top: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: $primary-color;
-  animation: indicatorPulse 2s infinite;
-
-  .dark-mode & {
-    background: lighten($primary-color, 10%);
-  }
-}
-
-.dock-tooltip {
-  position: absolute;
-  bottom: 80px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
+.bottom-nav__item:hover {
   color: $light-text;
-  padding: 12px 16px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 500;
+  background: rgba(15, 23, 42, 0.08);
+}
+
+.bottom-nav__item.router-link-exact-active {
+  flex-grow: 1.9;
+  gap: 6px;
+  padding: 0 8px;
+  color: #ffffff;
+  background: #111827;
+}
+
+.bottom-nav__item.router-link-exact-active .bottom-nav__label {
+  font-size: 12px;
+  line-height: 1;
+  max-width: 90px;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.bottom-nav__item::after {
+  content: attr(data-hint);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: rgba(12, 12, 14, 0.95);
+  color: #fff;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 600;
+  padding: 5px 8px;
+  border-radius: 7px;
   white-space: nowrap;
+  opacity: 0;
   pointer-events: none;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  animation: tooltipFadeIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transform: translateX(-50%);
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 8px solid transparent;
-    border-top-color: rgba(255, 255, 255, 0.95);
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-  }
-
-  .dark-mode & {
-    background: rgba(26, 32, 44, 0.95);
-    color: $dark-text;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-
-    &::after {
-      border-top-color: rgba(26, 32, 44, 0.95);
-    }
-  }
+  transition: opacity 0.18s ease, transform 0.18s ease;
 }
 
-@keyframes tooltipFadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
+.bottom-nav__item::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 3px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  border: 4px solid transparent;
+  border-top-color: rgba(12, 12, 14, 0.95);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
 }
 
-@keyframes dockSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.bottom-nav__item:hover::after,
+.bottom-nav__item:hover::before,
+.bottom-nav__item:focus-visible::after,
+.bottom-nav__item:focus-visible::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
-@keyframes indicatorPulse {
-  0%, 100% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-  }
-  50% {
-    opacity: 0.7;
-    transform: translateX(-50%) scale(1.2);
-  }
+.bottom-nav__item.router-link-exact-active::after,
+.bottom-nav__item.router-link-exact-active::before {
+  display: none;
 }
 
-// Mobile responsive
+.bottom-nav.dark-mode .bottom-nav__container {
+  background: rgba(8, 8, 10, 0.96);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.42);
+}
+
+.bottom-nav.dark-mode .bottom-nav__item {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.bottom-nav.dark-mode .bottom-nav__item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 1);
+}
+
+.bottom-nav.dark-mode .bottom-nav__item.router-link-exact-active {
+  color: #16181d;
+  background: #f4f5f7;
+}
+
 @media (max-width: 768px) {
-  .dock-nav {
-    padding: 12px;
-  }
-
-  .dock-container {
+  .bottom-nav {
     padding: 8px;
-    border-radius: 20px;
   }
 
-  .dock-item {
-    padding: 6px 8px;
-    margin: 0 2px;
+  .bottom-nav__container {
+    padding: 4px;
   }
 
-  .dock-icon {
-    width: 40px;
-    height: 40px;
+  .bottom-nav__item {
+    min-width: 0;
+    height: 34px;
+  }
+
+  .bottom-nav__icon {
+    width: 15px;
+    height: 15px;
 
     i {
-      font-size: 18px;
+      font-size: 15px;
     }
   }
 
-  .dock-label {
-    font-size: 10px;
+  .bottom-nav__item.router-link-exact-active .bottom-nav__label {
+    font-size: 11px;
+  }
+
+  .bottom-nav__item.router-link-exact-active {
+    flex-grow: 2;
+    padding: 0 7px;
   }
 }
 
 @media (max-width: 480px) {
-  .dock-nav {
-    padding: 8px;
-  }
-
-  .dock-container {
+  .bottom-nav {
     padding: 6px;
   }
 
-  .dock-item {
-    padding: 4px 6px;
-    margin: 0 1px;
+  .bottom-nav__container {
+    padding: 4px;
   }
 
-  .dock-icon {
-    width: 36px;
-    height: 36px;
+  .bottom-nav__item {
+    min-width: 0;
+    height: 30px;
+  }
+
+  .bottom-nav__icon {
+    width: 13px;
+    height: 13px;
 
     i {
-      font-size: 16px;
+      font-size: 13px;
     }
   }
 
-  .dock-label {
+  .bottom-nav__item.router-link-exact-active .bottom-nav__label {
+    font-size: 10px;
+  }
+
+  .bottom-nav__item.router-link-exact-active {
+    flex-grow: 1.8;
+    padding: 0 6px;
+  }
+
+  .bottom-nav__item::after {
     font-size: 9px;
+    padding: 4px 7px;
+  }
+}
+
+@media (hover: none) {
+  .bottom-nav__item::after,
+  .bottom-nav__item::before {
+    display: none;
   }
 }
 </style>

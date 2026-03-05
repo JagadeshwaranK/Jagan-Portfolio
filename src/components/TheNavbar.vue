@@ -97,6 +97,7 @@ export default {
 @import '../assets/styles/variables';
 
 .navbar {
+  --nav-logo-gradient: linear-gradient(110deg, #111111 8%, #4b5563 34%, #0f172a 56%, #6b7280 78%, #0b0b0b 100%);
   position: fixed;
   top: 0;
   left: 0;
@@ -114,6 +115,7 @@ export default {
   }
   
   &.dark-mode {
+    --nav-logo-gradient: linear-gradient(110deg, #ffffff 8%, #f8fafc 34%, #e5e7eb 52%, #ffffff 72%, #f1f5f9 100%);
     background-color: rgba($dark-bg, 0.9);
     
     &.scrolled {
@@ -151,9 +153,20 @@ export default {
   color: $light-text;
   
   span {
-    background: linear-gradient(45deg, $primary-color, $secondary-color);
+    background: var(--nav-logo-gradient);
+    background-size: 240% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: navLogoShine 6s linear infinite;
+  }
+}
+
+@keyframes navLogoShine {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 220% 50%;
   }
 }
 

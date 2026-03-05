@@ -36,8 +36,14 @@
           </div>
           
           <div class="about-actions" :class="{ 'visible': isInView }">
-            <a href="/contact" class="btn btn-outline">Get In Touch</a>
-            <a href="/assets/resume.pdf" download="JAGADESHWARAN K_SOFTWARE ENGINEER.pdf" class="btn btn-outline">Download CV</a>
+            <router-link to="/contact" class="btn about-btn about-btn-primary">
+              <i class="fas fa-comment-dots"></i>
+              <span>Get In Touch</span>
+            </router-link>
+            <a href="/assets/resume.pdf" download="JAGADESHWARAN K_SOFTWARE ENGINEER.pdf" class="btn about-btn about-btn-secondary">
+              <i class="fas fa-file-arrow-down"></i>
+              <span>Download CV</span>
+            </a>
           </div>
         </div>
       </div>
@@ -234,43 +240,80 @@ export default {
 .about-actions {
   display: flex;
   gap: $spacing-md;
+  flex-wrap: wrap;
   
   @media (max-width: $breakpoint-sm) {
     flex-direction: column;
     gap: $spacing-sm;
     
-    .btn {
+    .about-btn {
       width: 100%;
+      max-width: 100%;
       text-align: center;
       color: $light-text;
     }
   }
+}
 
-  .btn {
-    color: inherit;
-    
-    &.btn-outline {
-      &:hover {
-        background-color: transparent;
-        color: $primary-color;
-        box-shadow: 0 0 15px rgba($primary-color, 0.5);
-        transform: translateY(-3px);
-      }
-    }
+.about-btn {
+  display: inline-flex;
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform $transition-fast, opacity $transition-fast;
+
+  i {
+    font-size: $font-size-base;
+    flex-shrink: 0;
   }
 
-  .dark-mode & {
-    .btn {
-      color: $light-text;
-      
-      &.btn-outline {
-        &:hover {
-          background-color: transparent;
-          color: lighten($primary-color, 10%);
-          box-shadow: 0 0 15px rgba($primary-color, 0.5);
-        }
-      }
-    }
+  span {
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    opacity: 0.94;
   }
 }
+
+.about-btn-primary {
+  background: linear-gradient(135deg, #4b5563, #9ca3af);
+  color: #f9fafb;
+  box-shadow: 0 10px 22px rgba(75, 85, 99, 0.34);
+}
+
+.about-btn-secondary {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75), rgba(229, 231, 235, 0.65));
+  border-color: rgba(107, 114, 128, 0.55);
+  color: #374151;
+}
+
+.about-btn-primary:hover {
+  color: #f9fafb;
+}
+
+.about-btn-secondary:hover {
+  color: #374151;
+}
+
+.dark-mode .about-btn-primary:hover {
+  color: #f9fafb;
+}
+
+.dark-mode .about-btn-secondary:hover {
+  color: #374151;
+}
+
 </style>
