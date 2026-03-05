@@ -159,4 +159,38 @@ export default {
   text-align: center;
   color: $light-text;
 }
+
+@media (max-width: $breakpoint-md) {
+  .skill-item {
+    width: 104px;
+    padding: $spacing-sm;
+  }
+
+  .skill-icon {
+    font-size: 26px;
+    height: 34px;
+    margin-bottom: 6px;
+  }
+
+  .skill-name {
+    font-size: $font-size-sm;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .skill-item {
+    width: 92px;
+    padding: 6px;
+  }
+
+  .skill-icon {
+    font-size: 22px;
+    height: 30px;
+    margin-bottom: 4px;
+  }
+
+  .skill-name {
+    font-size: 12px;
+  }
+}
 </style>

@@ -70,7 +70,7 @@ export default {
   transition: background-color $transition-normal, color $transition-normal;
 }
 
-.dark-mode {
+.portfolio-app.dark-mode {
   background-color: $dark-bg;
   color: $dark-text;
 }
