@@ -13,53 +13,53 @@
             </div>
       </div> -->
 
-      <div class="contact-content">
-        <h3 class="contact-heading">Contact Information</h3>
-        <div class="contact-info" :class="{ 'visible': isInView }">
-          <p>Feel free to reach out to me. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
-          
-          <div class="info-items">
-            <div class="info-item">
-              <div class="icon-container">
-                <i class="fas fa-envelope"></i>
-              </div>
-              <div class="info-details">
-                <h4>Email</h4>
-                <p>jagadesh.k3008@gmail.com</p>
-              </div>
+      <div class="section-title">
+        <h2>Contact Information</h2>
+      </div>
+      <div class="contact-info" :class="{ 'visible': isInView }">
+        <p>Feel free to reach out to me. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
+        
+        <div class="info-items">
+          <div class="info-item">
+            <div class="icon-container">
+              <i class="fas fa-envelope"></i>
             </div>
-            
-            <div class="info-item">
-              <div class="icon-container">
-                <i class="fas fa-phone"></i>
-              </div>
-              <div class="info-details">
-                <h4>Phone</h4>
-                <p>+917826016047</p>
-              </div>
+            <div class="info-details">
+              <h4>Email</h4>
+              <p>jagadesh.k3008@gmail.com</p>
             </div>
-          </div>
-          
-          <div class="social-links">
-            <a href="https://www.linkedin.com/in/jagadeshwaran-k-5b504321a/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="https://github.com/JagadeshwaranK" target="_blank" rel="noopener noreferrer" title="GitHub">
-              <i class="fab fa-github"></i>
-            </a>
-            <a href="https://x.com/JAGADES68462368?t=sj1YEthbQpmcys5KdAxINg&s=09" target="_blank" rel="noopener noreferrer" title="Twitter">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="https://www.instagram.com/jagadesh_3014?igsh=MWk5OGVuZ2cyYzU2ag==" target="_blank" rel="noopener noreferrer" title="Instagram">
-              <i class="fab fa-instagram"></i>
-            </a>
           </div>
 
-          <button type="button" class="get-in-touch-btn" @click="openTallyForm">
-            <i class="fas fa-paper-plane"></i>
-            <span>Get in Touch</span>
-          </button>
+          <div class="info-item">
+            <div class="icon-container">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="info-details">
+              <h4>Phone</h4>
+              <p>+917826016047</p>
+            </div>
+          </div>
         </div>
+        
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/jagadeshwaran-k-5b504321a/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://github.com/JagadeshwaranK" target="_blank" rel="noopener noreferrer" title="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://x.com/JAGADES68462368?t=sj1YEthbQpmcys5KdAxINg&s=09" target="_blank" rel="noopener noreferrer" title="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://www.instagram.com/jagadesh_3014?igsh=MWk5OGVuZ2cyYzU2ag==" target="_blank" rel="noopener noreferrer" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+
+        <button type="button" class="get-in-touch-btn" @click="openTallyForm">
+          <i class="fas fa-paper-plane"></i>
+          <span>Get in Touch</span>
+        </button>
       </div>
     </div>
 
@@ -160,47 +160,6 @@ export default {
 @media (max-width: $breakpoint-md) {
   .contact-section {
     padding-bottom: calc(120px + env(safe-area-inset-bottom));
-  }
-}
-
-.contact-content {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: $spacing-xxl;
-  width: 100%;
-  min-width: 0;
-}
-
-.contact-heading {
-  text-align: center;
-  font-size: clamp(1.45rem, 2.2vw, 1.9rem);
-  margin-bottom: -$spacing-md;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  justify-self: center;
-  padding: 0.42rem 0.95rem;
-  border-radius: 999px;
-  border: 1px solid rgba($primary-color, 0.24);
-  background: linear-gradient(135deg, rgba($primary-color, 0.1), rgba(255, 255, 255, 0.78));
-  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
-  letter-spacing: 0.01em;
-  max-width: 100%;
-
-  &::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: $primary-color;
-    flex-shrink: 0;
-    box-shadow: 0 0 0 4px rgba($primary-color, 0.14);
-  }
-
-  .dark-mode & {
-    border-color: rgba($primary-color, 0.32);
-    background: linear-gradient(135deg, rgba($primary-color, 0.18), rgba(15, 23, 42, 0.76));
-    box-shadow: 0 10px 24px rgba(2, 6, 23, 0.4);
   }
 }
 
@@ -413,16 +372,6 @@ export default {
 }
 
 @media (max-width: $breakpoint-sm) {
-  .contact-content {
-    gap: $spacing-xl;
-  }
-
-  .contact-heading {
-    font-size: clamp(1.2rem, 5.4vw, 1.45rem);
-    padding: 0.38rem 0.75rem;
-    gap: 8px;
-  }
-
   .contact-info {
     padding: $spacing-md;
     border-radius: $border-radius-md;
