@@ -4,35 +4,32 @@
       <div class="section-title">
         <h2>Projects</h2>
       </div>
-      
+
       <div class="projects-grid">
-        <div
+        <article
           v-for="(project, index) in projects"
           :key="index"
-          class="project-item"
-          :class="{ 'visible': isInView }"
-          :style="{ transitionDelay: `${index * 0.15}s` }"
+          class="project-card"
+          :class="{ visible: isInView }"
+          :style="{ transitionDelay: `${index * 0.12}s` }"
         >
-          <div class="project-card" :class="{ 'dark-mode': isDarkMode }">
-            <div class="project-header">
-              <h3>{{ project.title }}</h3>
-            </div>
-
-            <div class="project-body">
-              <ul class="project-details">
-                <li v-for="(detail, detailIndex) in project.details" :key="detailIndex">
-                  {{ detail }}
-                </li>
-              </ul>
-
-              <div class="technologies" v-if="project.technologies?.length">
-                <span class="tech-badge" v-for="(tech, techIndex) in project.technologies" :key="techIndex">
-                  {{ tech }}
-                </span>
-              </div>
-            </div>
+          <div class="project-top">
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.summary }}</p>
           </div>
-        </div>
+
+          <ul class="project-highlights">
+            <li v-for="(detail, detailIndex) in project.highlights" :key="detailIndex">
+              {{ detail }}
+            </li>
+          </ul>
+
+          <div class="technologies" v-if="project.technologies?.length">
+            <span class="tech-badge" v-for="(tech, techIndex) in project.technologies" :key="techIndex">
+              {{ tech }}
+            </span>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -43,8 +40,6 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
 export default {
   name: 'ProjectsSection',
-  components: {
-  },
   props: {
     isDarkMode: {
       type: Boolean,
@@ -57,71 +52,62 @@ export default {
     const projects = [
       {
         title: 'Loyalty Rewards Engine for E-Commerce',
-        details: [
-          'Built a modular, full-stack e-commerce web platform featuring an integrated loyalty rewards system, delivering seamless online shopping with automatic points tracking and instant reward redemption.',
-          'Engineered responsive frontend interfaces using React and Material UI for dynamic product browsing, cart management, reward visibility, and campaign engagement, ensuring an intuitive experience across devices.',
-          'Developed a robust Django REST backend with PostgreSQL, managing secure data storage for user profiles, orders, reward catalogs, campaign logic, and transaction histories.',
-          'Implemented real-time loyalty point computation and tier progression, instantly updating user dashboards with earned points and available rewards after every purchase.',
-          'Enabled secure authentication with JWT tokens, role-based access for users and admins, and encrypted session handling, prioritizing privacy and security at every step.',
-          'Provided efficient campaign management tools for administrators, including bonus point scheduling, campaign activation, and data-driven marketing controls, enhancing repeat purchase rates.',
-          'Integrated advanced analytics dashboards displaying points statistics, redemption rates, campaign ROI, and user tier distribution, empowering timely, informed decisions.',
-          'Supported scalable deployment and maintainability using Vercel serverless hosting, API-driven architecture, and modular React/Django codebase designed for future enhancements.',
+        summary: 'A full-stack commerce platform with an integrated loyalty system designed to improve retention, campaign control, and customer engagement.',
+        highlights: [
+          'Built a modular shopping experience with automatic points tracking and instant reward redemption.',
+          'Developed responsive React interfaces for browsing, cart flow, rewards visibility, and campaign engagement.',
+          'Created a Django REST backend with PostgreSQL for users, orders, rewards, campaigns, and transaction history.',
+          'Added analytics dashboards for redemption trends, campaign ROI, and tier distribution.'
         ],
-        technologies: ['React', 'Material UI', 'Django REST Framework', 'PostgreSQL', 'JWT', 'Vercel', 'JavaScript']
+        technologies: ['React', 'Material UI', 'Django REST', 'PostgreSQL', 'JWT', 'Vercel']
       },
       {
         title: 'Armory E-commerce',
-        details: [
-          'Developed a responsive e-commerce web application using React, React-Bootstrap, HTML5, and CSS3.',
-          'Implemented key features such as a shopping cart, product category browsing, and secure checkout.',
-          'Utilized local storage for backend data management, including user session data and cart items.',
-          'Integrated React-Bootstrap components for a visually appealing, responsive design.',
-          'Designed real-time mechanisms to manage local storage interactions for secure user authentication.'
+        summary: 'A lightweight e-commerce web application focused on responsive shopping flows and client-side state handling.',
+        highlights: [
+          'Built product browsing, cart management, and checkout flows using React and React-Bootstrap.',
+          'Used local storage to handle cart data, session persistence, and lightweight state management.',
+          'Designed a responsive interface with reusable UI components for a smoother shopping experience.'
         ],
         technologies: ['React', 'React-Bootstrap', 'HTML5', 'CSS3', 'JavaScript']
       },
       {
         title: 'Pharmacy E-commerce',
-        details: [
-          'Developed a responsive e-commerce platform for pharmacy services with seamless frontend functionality using React and modern styling through Tailwind CSS.',
-          'Integrated advanced features like product filtering, inventory management, secure checkout systems, and cross-device compatibility for an enhanced user experience. ',
-          'Built scalable backend architecture leveraging PostgreSQL, MySQL, and MongoDB, ensuring efficient data handling and reliability.',
-          'Implemented secure user authentication methods including OAuth, mobile OTP verification, and emailbased login, prioritizing robust security measures. ',
-          'Enhanced functionality with technologies like Node.js and APIs, while adding automated email statusnotifications for instant user updates. ',
-          'Created an intuitive user interface with a focus on usability and accessibility, ensuring a seamless experience for all users.',
-
+        summary: 'A pharmacy-focused commerce platform with secure authentication, product discovery, and scalable backend support.',
+        highlights: [
+          'Built the frontend with React and Tailwind CSS for a faster and cleaner cross-device experience.',
+          'Implemented filtering, inventory handling, checkout flows, and automated status updates.',
+          'Supported multiple authentication paths including OAuth, OTP, and email-based login.',
+          'Backed the platform with Node.js and a database stack using PostgreSQL, MySQL, and MongoDB.'
         ],
-        technologies: ['React', 'Tailwind CSS', 'Node.js', 'PostgreSQL', 'MySQL', 'MongoDB', 'JavaScript']
+        technologies: ['React', 'Tailwind CSS', 'Node.js', 'PostgreSQL', 'MySQL', 'MongoDB']
       }
     ];
 
-    
     const checkIfInView = () => {
       const projectsSection = document.getElementById('projects');
 
       if (projectsSection) {
         const rect = projectsSection.getBoundingClientRect();
         const isVisible =
-          rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.7 &&
+          rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.75 &&
           rect.bottom >= 0;
 
         isInView.value = isVisible;
       }
     };
-    
+
     onMounted(() => {
       window.addEventListener('scroll', checkIfInView);
       window.addEventListener('resize', checkIfInView);
-      
-      // Initial check
       checkIfInView();
     });
-    
+
     onUnmounted(() => {
       window.removeEventListener('scroll', checkIfInView);
       window.removeEventListener('resize', checkIfInView);
     });
-    
+
     return {
       projects,
       isInView
@@ -134,7 +120,7 @@ export default {
 @import '../../assets/styles/variables';
 
 .projects-section {
-  background-color: dark-bg;
+  background-color: $light-bg;
   transition: background-color $transition-normal;
 
   &.dark-mode {
@@ -143,128 +129,117 @@ export default {
 }
 
 .projects-grid {
-  max-width: 900px;
-  margin: 0 auto;
-  position: relative;
-  padding: $spacing-xl 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $spacing-lg;
+
+  @media (max-width: $breakpoint-lg) {
+    grid-template-columns: 1fr;
+  }
 }
 
-.project-item {
-  display: flex;
-  margin-bottom: $spacing-xl;
+.project-card {
+  background-color: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba($primary-color, 0.16);
+  border-radius: $border-radius-lg;
+  padding: $spacing-xl;
+  box-shadow: $shadow-sm;
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease, border-color $transition-normal;
 
   &.visible {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.project-card {
-  flex: 1;
-  background: white;
-  border-radius: $border-radius-lg;
-  padding: $spacing-lg;
-  box-shadow: $shadow-md;
-  transition: all $transition-normal;
-  position: relative;
-  border: 1px solid transparent;
 
   &:hover {
-    border: 1px solid $primary-color;
-    box-shadow: $shadow-lg;
+    border-color: rgba($primary-color, 0.28);
   }
 
   .dark-mode & {
-    background: $dark-card-bg;
-    border: 1px solid $dark-border;
+    background-color: rgba(23, 27, 37, 0.86);
+    border-color: rgba($primary-color, 0.28);
 
     &:hover {
-      border: 1px solid lighten($primary-color, 10%);
+      border-color: rgba($primary-color, 0.4);
     }
   }
 }
 
-.project-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: $spacing-md;
-  padding-bottom: $spacing-md;
-  border-bottom: 1px solid $light-border;
+.project-top {
+  margin-bottom: $spacing-lg;
 
   h3 {
+    margin: 0 0 $spacing-sm;
     color: $light-text;
     font-size: $font-size-lg;
-    margin: 0;
 
     .dark-mode & {
       color: $dark-text;
     }
   }
 
-  .dark-mode & {
-    border-bottom: 1px solid $dark-border;
-  }
-}
-
-.project-body {
-  h4 {
+  p {
+    margin: 0;
     color: $light-secondary-text;
-    margin-bottom: $spacing-sm;
-    font-weight: 600;
+    line-height: 1.6;
 
     .dark-mode & {
       color: $dark-secondary-text;
     }
   }
+}
 
-  .project-details {
-    margin-left: $spacing-lg;
-    margin-bottom: $spacing-lg;
+.project-highlights {
+  margin: 0 0 $spacing-lg;
+  padding-left: $spacing-lg;
 
-    li {
-      margin-bottom: $spacing-sm;
-      color: $light-secondary-text;
-      line-height: 1.6;
+  li {
+    margin-bottom: $spacing-sm;
+    color: $light-secondary-text;
+    line-height: 1.6;
 
-      .dark-mode & {
-        color: $dark-secondary-text;
-      }
-
-      &::marker {
-        color: $primary-color;
-
-        .dark-mode & {
-          color: lighten($primary-color, 10%);
-        }
-      }
+    &:last-child {
+      margin-bottom: 0;
     }
-  }
 
-  .technologies {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $spacing-sm;
+    .dark-mode & {
+      color: $dark-secondary-text;
+    }
 
-    .tech-badge {
-      padding: $spacing-xs $spacing-sm;
-      background-color: rgba($primary-color, 0.1);
+    &::marker {
       color: $primary-color;
-      border-radius: $border-radius-sm;
-      font-size: $font-size-sm;
 
       .dark-mode & {
-        background-color: rgba($primary-color, 0.2);
         color: lighten($primary-color, 10%);
       }
     }
+  }
+}
+
+.technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.tech-badge {
+  padding: $spacing-xs $spacing-sm;
+  background-color: rgba($primary-color, 0.1);
+  color: $primary-color;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-sm;
+
+  .dark-mode & {
+    background-color: rgba($primary-color, 0.2);
+    color: lighten($primary-color, 10%);
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .project-card {
+    padding: $spacing-lg;
   }
 }
 </style>

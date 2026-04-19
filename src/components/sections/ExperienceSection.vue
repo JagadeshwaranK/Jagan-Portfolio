@@ -4,13 +4,13 @@
       <div class="section-title">
         <h2>Work Experience</h2>
       </div>
-      
+
       <div class="experience-list" ref="timeline">
         <div
           v-for="(exp, index) in experiences"
           :key="index"
           class="experience-item"
-          :class="{ 'visible': isInView }"
+          :class="{ visible: isInView }"
           :style="{ transitionDelay: `${index * 0.12}s` }"
         >
           <div class="experience-meta">
@@ -51,8 +51,6 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
 export default {
   name: 'ExperienceSection',
-  components: {
-  },
   props: {
     isDarkMode: {
       type: Boolean,
@@ -62,67 +60,60 @@ export default {
   setup() {
     const timeline = ref(null);
     const isInView = ref(false);
-    
 
     const experiences = [
-       {
-        role: 'Associate Software Engineer',
-        company: 'Glancito',
-        location: 'Remote',
-        startYear: '2025',
-        endYear: 'Current',
-        details: [
-          'Speed & Performance: I’ve been heavily focused on making our storefronts faster. I use React and Next.js to implement things like code splitting and lazy loading—basically making sure the site only loads what it needs, which really helped drop our Time to Interactive (TTI).',
-          'Modern API Design: I’m the go-to for setting up our data layers. I use GraphQL and TypeScript to build APIs that are not just fast, but also "type-safe," which saves the team a lot of time on debugging.',
-          'Security & Auth: I took ownership of our security protocols, specifically hardening the app against XSS and CORS issues. I also built out our authentication flows to make sure customer data stays locked down.',
-          'Merchant Tools: I built a system of UI components in TypeScript that lets merchants customize their themes on the fly. It turned out to be a huge win for user engagement.',
-          'Team Collaboration: I’m deep in the SDLC every day, working through code reviews and design sessions to make sure we’re hitting our internal quality bars and keeping the architecture clean.',
-        ],
-        technologies: ['React', 'Next.js', 'TypeScript', 'GraphQL', 'Shopify', 'Cypress', 'Javascript']
-        
-      },
-
       {
-        role: 'Pega Developer',
-        company: 'Cognizant Technology Solutions',
-        location: 'Chennai, India',
+        role: 'Associate Software Engineer',
+        company: 'Glancito LLC',
+        location: 'Remote',
+        startYear: '2024',
+        endYear: 'Present',
+        details: [
+          'Full-Stack Development: Architected scalable apps using TypeScript, Node.js, and React, implementing REST and GraphQL APIs for real-time data flow.',
+          'Cloud & DevOps: Managed AWS infrastructure across ECS, EC2, and Route 53, and automated deployments with CI/CD pipelines to maintain 99.9% uptime.',
+          'Innovation: Built a custom Loyalty Management System from scratch and integrated AI APIs to power personalized marketing automation.',
+          'Performance: Optimized frontend Web Vitals and state management to keep interactions fast even under heavy data loads.'
+        ],
+        technologies: ['TypeScript', 'Node.js', 'React', 'REST API', 'GraphQL', 'AWS', 'CI/CD']
+      },
+      {
+        role: 'Programmer',
+        company: 'Cognizant',
+        location: 'Bangalore',
         startYear: '2022',
         endYear: '2024',
         details: [
-          'Enterprise Solutions: I spent two years building out complex case life cycles for banking and insurance clients using Pega BPM. I focused on making these systems scalable so they would not break as the user base grew.',
-          'System Integration: I handled the "pipes" between systems, configuring REST APIs and messaging services to keep customer records synced up across different platforms.',
-          'Process Efficiency: I managed to cut down our SLA violations by 10% just by re-working our escalation logic and fine-tuning how we used Data Transforms and Data Pages.',
-          'Agile Development: We worked in a fast-paced Agile/Scrum setup. I was a big advocate for TDD (Test-Driven Development), using JUnit to catch bugs before they ever hit production.',
-          'Deep-Dive Debugging: When things broke, I used tools like Tracer and Live UI to get under the hood and fix issues fast, keeping our uptime close to 100%.'
-],
-        technologies: ['Pega', 'Agile', 'Java', 'REST API', 'SQL', 'SLA', 'JUnit']
+          'Pega BPM Expert: Engineered end-to-end case lifecycles, ensuring complex financial workflows remained maintainable and scalable.',
+          'System Integration: Connected disparate systems through REST, SOAP, and Connect SQL to streamline customer record management.',
+          'UI/UX & Logic: Enhanced interfaces with HTML, CSS, and JavaScript, and improved performance using Pega declarative rules and debugging tools.',
+          'Security: Architected robust access controls and SLA-driven workflows to protect data integrity and support timely task execution in Agile teams.'
+        ],
+        technologies: ['Pega BPM', 'REST', 'SOAP', 'Connect SQL', 'HTML', 'CSS', 'JavaScript', 'Agile']
       }
     ];
-    
+
     const checkIfInView = () => {
       if (timeline.value) {
         const rect = timeline.value.getBoundingClientRect();
-        const isVisible = 
-          rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 && 
+        const isVisible =
+          rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
           rect.bottom >= 0;
-        
+
         isInView.value = isVisible;
       }
     };
-    
+
     onMounted(() => {
       window.addEventListener('scroll', checkIfInView);
       window.addEventListener('resize', checkIfInView);
-      
-      // Initial check
       checkIfInView();
     });
-    
+
     onUnmounted(() => {
       window.removeEventListener('scroll', checkIfInView);
       window.removeEventListener('resize', checkIfInView);
     });
-    
+
     return {
       experiences,
       timeline,
@@ -215,24 +206,24 @@ export default {
 }
 
 .experience-card {
-  background: white;
+  background-color: rgba(255, 255, 255, 0.72);
   border-radius: $border-radius-lg;
   padding: $spacing-lg $spacing-xl;
   box-shadow: $shadow-sm;
   transition: all $transition-normal;
-  border: 1px solid $light-border;
+  border: 1px solid rgba($primary-color, 0.16);
 
   &:hover {
-    border-color: rgba($primary-color, 0.35);
+    border-color: rgba($primary-color, 0.28);
     box-shadow: $shadow-md;
   }
 
   .dark-mode & {
-    background: $dark-card-bg;
-    border-color: $dark-border;
+    background-color: rgba(23, 27, 37, 0.86);
+    border-color: rgba($primary-color, 0.28);
 
     &:hover {
-      border-color: rgba($primary-color, 0.55);
+      border-color: rgba($primary-color, 0.4);
     }
   }
 }
