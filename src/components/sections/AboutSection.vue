@@ -40,7 +40,7 @@
               <i class="fas fa-comment-dots"></i>
               <span>Get In Touch</span>
             </router-link>
-            <a href="/assets/resume.pdf" download="JAGADESHWARAN K.pdf" class="btn about-btn about-btn-secondary">
+            <a href="/assets/JAGADESHWARAN%20K.pdf" download="JAGADESHWARAN K.pdf" class="btn about-btn about-btn-secondary">
               <i class="fas fa-file-arrow-down"></i>
               <span>Download CV</span>
             </a>
