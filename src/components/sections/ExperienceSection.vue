@@ -66,7 +66,7 @@ export default {
         role: 'Associate Software Engineer',
         company: 'Glancito LLC',
         location: 'Remote',
-        startYear: '2024',
+        startYear: '2025',
         endYear: 'Present',
         details: [
           'Full-Stack Development: Architected scalable apps using TypeScript, Node.js, and React, implementing REST and GraphQL APIs for real-time data flow.',
