@@ -61,16 +61,16 @@ export default {
         ],
         technologies: ['React', 'Material UI', 'Django REST', 'PostgreSQL', 'JWT', 'Vercel']
       },
-      {
-        title: 'Armory E-commerce',
-        summary: 'A lightweight e-commerce web application focused on responsive shopping flows and client-side state handling.',
-        highlights: [
-          'Built product browsing, cart management, and checkout flows using React and React-Bootstrap.',
-          'Used local storage to handle cart data, session persistence, and lightweight state management.',
-          'Designed a responsive interface with reusable UI components for a smoother shopping experience.'
-        ],
-        technologies: ['React', 'React-Bootstrap', 'HTML5', 'CSS3', 'JavaScript']
-      },
+      // {
+      //   title: 'Armory E-commerce',
+      //   summary: 'A lightweight e-commerce web application focused on responsive shopping flows and client-side state handling.',
+      //   highlights: [
+      //     'Built product browsing, cart management, and checkout flows using React and React-Bootstrap.',
+      //     'Used local storage to handle cart data, session persistence, and lightweight state management.',
+      //     'Designed a responsive interface with reusable UI components for a smoother shopping experience.'
+      //   ],
+      //   technologies: ['React', 'React-Bootstrap', 'HTML5', 'CSS3', 'JavaScript']
+      // },
       {
         title: 'Pharmacy E-commerce',
         summary: 'A pharmacy-focused commerce platform with secure authentication, product discovery, and scalable backend support.',
