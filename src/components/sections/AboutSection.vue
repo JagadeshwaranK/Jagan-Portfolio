@@ -99,8 +99,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/variables';
-
 .about-section {
   background-color: dark-bg;
   transition: background-color $transition-normal;
@@ -113,7 +111,7 @@ export default {
     }
     
     .highlight {
-      color: lighten($primary-color, 10%);
+      color: color.adjust($primary-color, $lightness: 10%);
     }
   }
 }
@@ -211,7 +209,7 @@ export default {
     font-weight: 600;
 
     .dark-mode & {
-      color: lighten($primary-color, 10%);
+      color: color.adjust($primary-color, $lightness: 10%);
     }
   }
 }

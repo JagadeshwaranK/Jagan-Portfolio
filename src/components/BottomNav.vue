@@ -55,8 +55,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/styles/variables';
-
 .bottom-nav {
   position: fixed;
   bottom: 0;
