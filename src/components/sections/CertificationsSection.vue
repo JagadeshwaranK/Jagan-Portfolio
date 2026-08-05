@@ -126,8 +126,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/variables';
-
 .certifications-section {
   background-color: $light-bg;
   transition: background-color $transition-normal;
@@ -193,7 +191,7 @@ export default {
 
   .dark-mode & {
     background: rgba($primary-color, 0.18);
-    color: lighten($primary-color, 10%);
+    color: color.adjust($primary-color, $lightness: 10%);
   }
 }
 
@@ -216,7 +214,7 @@ export default {
   font-weight: 600;
 
   .dark-mode & {
-    color: lighten($primary-color, 10%);
+    color: color.adjust($primary-color, $lightness: 10%);
   }
 }
 
