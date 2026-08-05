@@ -56,6 +56,12 @@ export default {
         icon: 'fas fa-robot'
       },
       {
+        name: 'Claude Code in Action',
+        issuer: 'Anthropic Education',
+        description: 'Hands-on training in Claude Code CLI workflows, including context management, custom instructions, automation, GitHub integration, and MCP server setup.',
+        icon: 'fas fa-terminal'
+      },
+      {
         name: 'The Fundamentals of Digital Marketing',
         issuer: 'Google',
         description: 'Covered SEO, content, social media, and analytics through a structured digital marketing program.',
