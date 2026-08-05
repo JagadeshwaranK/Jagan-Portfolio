@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "vue-cli-service serve",
+    "start": "node api.js && vue-cli-service serve",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "node api.js && vue-cli-service build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
