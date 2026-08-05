@@ -63,8 +63,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import './assets/styles/variables';
-
 .portfolio-app {
   min-height: 100vh;
   transition: background-color $transition-normal, color $transition-normal;

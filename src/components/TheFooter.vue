@@ -67,15 +67,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/styles/variables';
-
 .footer {
-  background-color: darken($light-card-bg, 5%);
+  background-color: color.adjust($light-card-bg, $lightness: -5%);
   padding: $spacing-xxl 0;
   margin-top: $spacing-xxl;
   
   &.dark-mode {
-    background-color: lighten($dark-bg, 5%);
+    background-color: color.adjust($dark-bg, $lightness: 5%);
     
     .footer-logo h3 {
       color: $dark-text;

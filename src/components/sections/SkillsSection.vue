@@ -159,8 +159,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/variables';
-
 .skills-section {
   background-color: $light-bg;
   transition: background-color $transition-normal;
@@ -286,7 +284,7 @@ export default {
   font-size: 15px;
 
   .dark-mode & {
-    color: lighten($primary-color, 10%);
+    color: color.adjust($primary-color, $lightness: 10%);
   }
 }
 
@@ -365,19 +363,19 @@ export default {
     font-weight: 600;
 
     .dark-mode & {
-      color: lighten($primary-color, 10%);
+      color: color.adjust($primary-color, $lightness: 10%);
     }
   }
 }
 
 .progress-bar {
   height: 8px;
-  background-color: lighten($light-border, 5%);
+  background-color: color.adjust($light-border, $lightness: 5%);
   border-radius: $border-radius-full;
   overflow: hidden;
 
   .dark-mode & {
-    background-color: lighten($dark-border, 5%);
+    background-color: color.adjust($dark-border, $lightness: 5%);
   }
 }
 
