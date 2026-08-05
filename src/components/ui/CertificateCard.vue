@@ -38,8 +38,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/variables';
-
 .certificate-card {
   display: flex;
   background-color: $light-card-bg;
@@ -68,7 +66,7 @@ export default {
         color: $dark-secondary-text;
 
         i {
-          color: lighten($primary-color, 10%);
+          color: color.adjust($primary-color, $lightness: 10%);
         }
       }
 
@@ -81,7 +79,7 @@ export default {
           color: $dark-text;
 
           &:hover {
-            color: lighten($primary-color, 15%);
+            color: color.adjust($primary-color, $lightness: 15%);
           }
         }
       }
@@ -136,7 +134,7 @@ export default {
       color: $primary-color;
       
       .dark-mode & {
-        color: lighten($primary-color, 10%);
+        color: color.adjust($primary-color, $lightness: 10%);
       }
     }
     

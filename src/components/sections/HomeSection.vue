@@ -100,8 +100,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/variables';
-
 .home-section {
   min-height: 100vh;
   position: relative;

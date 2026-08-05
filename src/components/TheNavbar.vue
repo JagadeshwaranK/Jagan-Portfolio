@@ -61,8 +61,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/styles/variables';
-
 .navbar {
   --nav-logo-gradient: linear-gradient(110deg, #111111 8%, #4b5563 34%, #0f172a 56%, #6b7280 78%, #0b0b0b 100%);
   position: fixed;

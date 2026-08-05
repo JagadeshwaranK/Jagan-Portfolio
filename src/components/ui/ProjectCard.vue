@@ -38,8 +38,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/variables';
-
 .project-card {
   text-align: left;
   margin-bottom: $spacing-lg;
@@ -68,7 +66,7 @@ export default {
     margin-top: $spacing-sm;
     
     .dark-mode & {
-      color: lighten($primary-color, 10%);
+      color: color.adjust($primary-color, $lightness: 10%);
     }
   }
   
@@ -117,7 +115,7 @@ export default {
         color: $primary-color;
         
         .dark-mode & {
-          color: lighten($primary-color, 10%);
+          color: color.adjust($primary-color, $lightness: 10%);
         }
       }
     }
@@ -137,7 +135,7 @@ export default {
       
       .dark-mode & {
         background-color: rgba($primary-color, 0.2);
-        color: lighten($primary-color, 10%);
+        color: color.adjust($primary-color, $lightness: 10%);
       }
     }
   }
