@@ -124,8 +124,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/variables';
-
 .experience-section {
   background-color: $light-bg;
   transition: background-color $transition-normal;
@@ -184,7 +182,7 @@ export default {
   letter-spacing: 0.02em;
 
   .dark-mode & {
-    color: lighten($primary-color, 10%);
+    color: color.adjust($primary-color, $lightness: 10%);
   }
 }
 
@@ -277,7 +275,7 @@ export default {
         color: $primary-color;
 
         .dark-mode & {
-          color: lighten($primary-color, 10%);
+          color: color.adjust($primary-color, $lightness: 10%);
         }
       }
     }
@@ -297,7 +295,7 @@ export default {
 
       .dark-mode & {
         background-color: rgba($primary-color, 0.2);
-        color: lighten($primary-color, 10%);
+        color: color.adjust($primary-color, $lightness: 10%);
       }
     }
   }
